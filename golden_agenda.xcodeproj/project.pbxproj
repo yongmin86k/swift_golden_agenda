@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		9B0BFEE72C28A87A009F007F /* golden_agendaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */; };
-		9B0BFEE92C28A87A009F007F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFEE82C28A87A009F007F /* ContentView.swift */; };
-		9B0BFEEB2C28A87A009F007F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFEEA2C28A87A009F007F /* Item.swift */; };
 		9B0BFEED2C28A87C009F007F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BFEEC2C28A87C009F007F /* Assets.xcassets */; };
 		9B0BFEF12C28A87C009F007F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BFEF02C28A87C009F007F /* Preview Assets.xcassets */; };
 		9B0BFEFB2C28A87C009F007F /* golden_agendaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFEFA2C28A87C009F007F /* golden_agendaTests.swift */; };
 		9B0BFF052C28A87C009F007F /* golden_agendaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFF042C28A87C009F007F /* golden_agendaUITests.swift */; };
 		9B0BFF072C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */; };
+		9B3493402C28AA2F003489AC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B34933F2C28AA2F003489AC /* Theme.swift */; };
+		9B3493422C28AA72003489AC /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493412C28AA72003489AC /* Routes.swift */; };
+		9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493432C28AAAA003489AC /* GAShapes.swift */; };
+		9B3493462C28AB61003489AC /* WhiteBackdropBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */; };
+		9B3493482C28AB84003489AC /* GABottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493472C28AB84003489AC /* GABottomBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,18 +38,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B0BFEE32C28A87A009F007F /* golden agenda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "golden agenda.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B0BFEE32C28A87A009F007F /* golden_agenda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = golden_agenda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaApp.swift; sourceTree = "<group>"; };
-		9B0BFEE82C28A87A009F007F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		9B0BFEEA2C28A87A009F007F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B0BFEEC2C28A87C009F007F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = golden_agenda.entitlements; sourceTree = "<group>"; };
 		9B0BFEF02C28A87C009F007F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9B0BFEF62C28A87C009F007F /* golden agendaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "golden agendaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B0BFEF62C28A87C009F007F /* golden_agendaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golden_agendaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BFEFA2C28A87C009F007F /* golden_agendaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaTests.swift; sourceTree = "<group>"; };
-		9B0BFF002C28A87C009F007F /* golden agendaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "golden agendaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B0BFF002C28A87C009F007F /* golden_agendaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golden_agendaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BFF042C28A87C009F007F /* golden_agendaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaUITests.swift; sourceTree = "<group>"; };
 		9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9B34933F2C28AA2F003489AC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9B3493412C28AA72003489AC /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
+		9B3493432C28AAAA003489AC /* GAShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAShapes.swift; sourceTree = "<group>"; };
+		9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteBackdropBlurView.swift; sourceTree = "<group>"; };
+		9B3493472C28AB84003489AC /* GABottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GABottomBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +83,9 @@
 		9B0BFEDA2C28A87A009F007F = {
 			isa = PBXGroup;
 			children = (
-				9B0BFEE52C28A87A009F007F /* golden agenda */,
-				9B0BFEF92C28A87C009F007F /* golden agendaTests */,
-				9B0BFF032C28A87C009F007F /* golden agendaUITests */,
+				9B0BFEE52C28A87A009F007F /* golden_agenda */,
+				9B0BFEF92C28A87C009F007F /* golden_agendaTests */,
+				9B0BFF032C28A87C009F007F /* golden_agendaUITests */,
 				9B0BFEE42C28A87A009F007F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,24 +93,25 @@
 		9B0BFEE42C28A87A009F007F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B0BFEE32C28A87A009F007F /* golden agenda.app */,
-				9B0BFEF62C28A87C009F007F /* golden agendaTests.xctest */,
-				9B0BFF002C28A87C009F007F /* golden agendaUITests.xctest */,
+				9B0BFEE32C28A87A009F007F /* golden_agenda.app */,
+				9B0BFEF62C28A87C009F007F /* golden_agendaTests.xctest */,
+				9B0BFF002C28A87C009F007F /* golden_agendaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9B0BFEE52C28A87A009F007F /* golden agenda */ = {
+		9B0BFEE52C28A87A009F007F /* golden_agenda */ = {
 			isa = PBXGroup;
 			children = (
+				9B34933E2C28AA1B003489AC /* Shared */,
 				9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */,
-				9B0BFEE82C28A87A009F007F /* ContentView.swift */,
-				9B0BFEEA2C28A87A009F007F /* Item.swift */,
 				9B0BFEEC2C28A87C009F007F /* Assets.xcassets */,
+				9B3493412C28AA72003489AC /* Routes.swift */,
 				9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */,
 				9B0BFEEF2C28A87C009F007F /* Preview Content */,
+				9B34933F2C28AA2F003489AC /* Theme.swift */,
 			);
-			path = "golden agenda";
+			path = golden_agenda;
 			sourceTree = "<group>";
 		};
 		9B0BFEEF2C28A87C009F007F /* Preview Content */ = {
@@ -115,29 +122,39 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9B0BFEF92C28A87C009F007F /* golden agendaTests */ = {
+		9B0BFEF92C28A87C009F007F /* golden_agendaTests */ = {
 			isa = PBXGroup;
 			children = (
 				9B0BFEFA2C28A87C009F007F /* golden_agendaTests.swift */,
 			);
-			path = "golden agendaTests";
+			path = golden_agendaTests;
 			sourceTree = "<group>";
 		};
-		9B0BFF032C28A87C009F007F /* golden agendaUITests */ = {
+		9B0BFF032C28A87C009F007F /* golden_agendaUITests */ = {
 			isa = PBXGroup;
 			children = (
 				9B0BFF042C28A87C009F007F /* golden_agendaUITests.swift */,
 				9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */,
 			);
-			path = "golden agendaUITests";
+			path = golden_agendaUITests;
+			sourceTree = "<group>";
+		};
+		9B34933E2C28AA1B003489AC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9B3493432C28AAAA003489AC /* GAShapes.swift */,
+				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
+				9B3493472C28AB84003489AC /* GABottomBarView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9B0BFEE22C28A87A009F007F /* golden agenda */ = {
+		9B0BFEE22C28A87A009F007F /* golden_agenda */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B0BFF0A2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agenda" */;
+			buildConfigurationList = 9B0BFF0A2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agenda" */;
 			buildPhases = (
 				9B0BFEDF2C28A87A009F007F /* Sources */,
 				9B0BFEE02C28A87A009F007F /* Frameworks */,
@@ -147,14 +164,14 @@
 			);
 			dependencies = (
 			);
-			name = "golden agenda";
+			name = golden_agenda;
 			productName = "golden agenda";
-			productReference = 9B0BFEE32C28A87A009F007F /* golden agenda.app */;
+			productReference = 9B0BFEE32C28A87A009F007F /* golden_agenda.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9B0BFEF52C28A87C009F007F /* golden agendaTests */ = {
+		9B0BFEF52C28A87C009F007F /* golden_agendaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B0BFF0D2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agendaTests" */;
+			buildConfigurationList = 9B0BFF0D2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agendaTests" */;
 			buildPhases = (
 				9B0BFEF22C28A87C009F007F /* Sources */,
 				9B0BFEF32C28A87C009F007F /* Frameworks */,
@@ -165,14 +182,14 @@
 			dependencies = (
 				9B0BFEF82C28A87C009F007F /* PBXTargetDependency */,
 			);
-			name = "golden agendaTests";
+			name = golden_agendaTests;
 			productName = "golden agendaTests";
-			productReference = 9B0BFEF62C28A87C009F007F /* golden agendaTests.xctest */;
+			productReference = 9B0BFEF62C28A87C009F007F /* golden_agendaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9B0BFEFF2C28A87C009F007F /* golden agendaUITests */ = {
+		9B0BFEFF2C28A87C009F007F /* golden_agendaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B0BFF102C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agendaUITests" */;
+			buildConfigurationList = 9B0BFF102C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agendaUITests" */;
 			buildPhases = (
 				9B0BFEFC2C28A87C009F007F /* Sources */,
 				9B0BFEFD2C28A87C009F007F /* Frameworks */,
@@ -183,9 +200,9 @@
 			dependencies = (
 				9B0BFF022C28A87C009F007F /* PBXTargetDependency */,
 			);
-			name = "golden agendaUITests";
+			name = golden_agendaUITests;
 			productName = "golden agendaUITests";
-			productReference = 9B0BFF002C28A87C009F007F /* golden agendaUITests.xctest */;
+			productReference = 9B0BFF002C28A87C009F007F /* golden_agendaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -211,7 +228,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9B0BFEDE2C28A87A009F007F /* Build configuration list for PBXProject "golden agenda" */;
+			buildConfigurationList = 9B0BFEDE2C28A87A009F007F /* Build configuration list for PBXProject "golden_agenda" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -224,9 +241,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B0BFEE22C28A87A009F007F /* golden agenda */,
-				9B0BFEF52C28A87C009F007F /* golden agendaTests */,
-				9B0BFEFF2C28A87C009F007F /* golden agendaUITests */,
+				9B0BFEE22C28A87A009F007F /* golden_agenda */,
+				9B0BFEF52C28A87C009F007F /* golden_agendaTests */,
+				9B0BFEFF2C28A87C009F007F /* golden_agendaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -262,8 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B0BFEE92C28A87A009F007F /* ContentView.swift in Sources */,
-				9B0BFEEB2C28A87A009F007F /* Item.swift in Sources */,
+				9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */,
+				9B3493402C28AA2F003489AC /* Theme.swift in Sources */,
+				9B3493482C28AB84003489AC /* GABottomBarView.swift in Sources */,
+				9B3493462C28AB61003489AC /* WhiteBackdropBlurView.swift in Sources */,
+				9B3493422C28AA72003489AC /* Routes.swift in Sources */,
 				9B0BFEE72C28A87A009F007F /* golden_agendaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,12 +310,12 @@
 /* Begin PBXTargetDependency section */
 		9B0BFEF82C28A87C009F007F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B0BFEE22C28A87A009F007F /* golden agenda */;
+			target = 9B0BFEE22C28A87A009F007F /* golden_agenda */;
 			targetProxy = 9B0BFEF72C28A87C009F007F /* PBXContainerItemProxy */;
 		};
 		9B0BFF022C28A87C009F007F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B0BFEE22C28A87A009F007F /* golden agenda */;
+			target = 9B0BFEE22C28A87A009F007F /* golden_agenda */;
 			targetProxy = 9B0BFF012C28A87C009F007F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -420,10 +440,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "golden agenda/golden_agenda.entitlements";
+				CODE_SIGN_ENTITLEMENTS = golden_agenda/golden_agenda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"golden agenda/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"golden_agenda/Preview Content\"";
 				DEVELOPMENT_TEAM = 3UAKXFS7F2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -458,10 +478,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "golden agenda/golden_agenda.entitlements";
+				CODE_SIGN_ENTITLEMENTS = golden_agenda/golden_agenda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"golden agenda/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"golden_agenda/Preview Content\"";
 				DEVELOPMENT_TEAM = 3UAKXFS7F2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -510,7 +530,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/golden agenda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/golden agenda";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/golden_agenda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/golden_agenda";
 			};
 			name = Debug;
 		};
@@ -533,7 +553,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/golden agenda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/golden agenda";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/golden_agenda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/golden_agenda";
 			};
 			name = Release;
 		};
@@ -584,7 +604,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B0BFEDE2C28A87A009F007F /* Build configuration list for PBXProject "golden agenda" */ = {
+		9B0BFEDE2C28A87A009F007F /* Build configuration list for PBXProject "golden_agenda" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0BFF082C28A87C009F007F /* Debug */,
@@ -593,7 +613,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B0BFF0A2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agenda" */ = {
+		9B0BFF0A2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agenda" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0BFF0B2C28A87C009F007F /* Debug */,
@@ -602,7 +622,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B0BFF0D2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agendaTests" */ = {
+		9B0BFF0D2C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agendaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0BFF0E2C28A87C009F007F /* Debug */,
@@ -611,7 +631,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B0BFF102C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden agendaUITests" */ = {
+		9B0BFF102C28A87C009F007F /* Build configuration list for PBXNativeTarget "golden_agendaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0BFF112C28A87C009F007F /* Debug */,

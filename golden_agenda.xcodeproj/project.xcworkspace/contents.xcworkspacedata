@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/pro_osx/Desktop/my_git/swift-golden-agenda/golden_agenda.xcodeproj">
    </FileRef>
 </Workspace>
