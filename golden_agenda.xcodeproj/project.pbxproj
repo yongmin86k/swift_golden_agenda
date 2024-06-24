@@ -14,6 +14,7 @@
 		9B0BFF052C28A87C009F007F /* golden_agendaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFF042C28A87C009F007F /* golden_agendaUITests.swift */; };
 		9B0BFF072C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */; };
 		9B2EC05A2C2953BA00873C84 /* GATagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2EC0592C2953BA00873C84 /* GATagView.swift */; };
+		9B2EC05D2C2972BE00873C84 /* StringExtnesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2EC05C2C2972BE00873C84 /* StringExtnesions.swift */; };
 		9B3493402C28AA2F003489AC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B34933F2C28AA2F003489AC /* Theme.swift */; };
 		9B3493422C28AA72003489AC /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493412C28AA72003489AC /* Routes.swift */; };
 		9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493432C28AAAA003489AC /* GAShapes.swift */; };
@@ -55,6 +56,7 @@
 		9B0BFF042C28A87C009F007F /* golden_agendaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaUITests.swift; sourceTree = "<group>"; };
 		9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B2EC0592C2953BA00873C84 /* GATagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATagView.swift; sourceTree = "<group>"; };
+		9B2EC05C2C2972BE00873C84 /* StringExtnesions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtnesions.swift; sourceTree = "<group>"; };
 		9B34933F2C28AA2F003489AC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9B3493412C28AA72003489AC /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		9B3493432C28AAAA003489AC /* GAShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAShapes.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		9B0BFEE52C28A87A009F007F /* golden_agenda */ = {
 			isa = PBXGroup;
 			children = (
+				9B2EC05B2C2972AB00873C84 /* Utils */,
 				9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */,
 				9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */,
 				9B3493412C28AA72003489AC /* Routes.swift */,
@@ -152,13 +155,21 @@
 			path = golden_agendaUITests;
 			sourceTree = "<group>";
 		};
+		9B2EC05B2C2972AB00873C84 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9B2EC05C2C2972BE00873C84 /* StringExtnesions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		9B34933E2C28AA1B003489AC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9B3493432C28AAAA003489AC /* GAShapes.swift */,
-				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
 				9B3493472C28AB84003489AC /* GABottomBarView.swift */,
+				9B3493432C28AAAA003489AC /* GAShapes.swift */,
 				9B2EC0592C2953BA00873C84 /* GATagView.swift */,
+				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -166,11 +177,11 @@
 		9B3493492C28AED6003489AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9B34934E2C28B0E0003489AC /* SettingView */,
-				9B34934D2C28B0D7003489AC /* RewardView */,
-				9B34934C2C28B0C3003489AC /* ReportView */,
 				9B34934B2C28B06B003489AC /* AddAgendaView */,
 				9B34934A2C28AF1A003489AC /* AgendaView */,
+				9B34934C2C28B0C3003489AC /* ReportView */,
+				9B34934D2C28B0D7003489AC /* RewardView */,
+				9B34934E2C28B0E0003489AC /* SettingView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B2EC05D2C2972BE00873C84 /* StringExtnesions.swift in Sources */,
 				9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */,
 				9B3493402C28AA2F003489AC /* Theme.swift in Sources */,
 				9B2EC05A2C2953BA00873C84 /* GATagView.swift in Sources */,

@@ -11,20 +11,29 @@ struct AgendaView: View {
     var body: some View {
         let date = Date()
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
+        let year: Int = calendar.component(.year, from: date)
+        let month: Int = calendar.component(.month, from: date)
 
         NavigationStack {
             VStack {
                 HStack {
-                    GATagView(text: "\(year)")
-                    Text("\(month)")
-                        .foregroundStyle(.grey2)
-                        .font(
-                            .system(size: 59, weight: .thin, design: .default)
-                        )
-                    GATagView(text: "Today")
+                    Button(action: {}, label: { GATagView(text: "\(year)") })
+
+                    Spacer()
+
+                    Button(action: {}, label: {
+                        Text("\(month)".paddingStart(length: 2, chars: "0"))
+                            .foregroundStyle(.grey2)
+                            .font(
+                                .system(size: 59, weight: .thin, design: .default)
+                            )
+                    })
+
+                    Spacer()
+
+                    Button(action: {}, label: { GATagView(text: "Today") })
                 }
+                .safeAreaPadding(.horizontal)
 
                 Spacer()
             }
