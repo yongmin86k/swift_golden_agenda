@@ -8,41 +8,33 @@
 import SwiftUI
 
 var tabs = [
-    Routes.reminders,
+    Routes.agenda,
     Routes.rewards,
-    Routes.addReminders,
+    Routes.addAgenda,
     Routes.reports,
     Routes.settings,
 ]
 
 struct GABottomBarView: View {
-    @State var selectedTab = Routes.reminders
+    @State var selectedTab = Routes.agenda
     
     var showBottomTab: Bool = true
     
     var body: some View {
         GeometryReader { size in
-            let paddingTop = size.safeAreaInsets.top
-            
-            ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                
+            ZStack(
+                alignment:
+                Alignment(
+                    horizontal: .center,
+                    vertical: .bottom
+                )
+            ) {
                 TabView(selection: $selectedTab) {
                     ForEach(tabs, id: \.self) { route in
-                        ZStack {
-                            Color.grey1
-                            
-                            WhiteBackdropBlurView()
-                                .padding(EdgeInsets(top: paddingTop, leading: 16, bottom: 0, trailing: 16))
-                            
-                            Text("screen name: \n\(route.name)")
-                                .multilineTextAlignment(.center)
-                            
-                        }
-                        .ignoresSafeArea()
-                        .tag(route)
+                        route.body.tag(route)
                     }
                 }
-                
+                                
                 GATabBar(parentSize: size)
             }
             .ignoresSafeArea()
@@ -58,41 +50,38 @@ struct GABottomBarView: View {
         let otherButtonSize: CGFloat = (containerWidth - addReminderButtonSize) / CGFloat(tabs.count)
         let containerHeight: CGFloat = parentSize.safeAreaInsets.bottom + otherButtonSize + verticalPadding
         
-        GeometryReader { geometry in
-            HStack(
-                spacing: 0,
-                content: {
-                    ForEach(tabs, id: \.self) {route in
-                        GeometryReader { reader in
-                            let isAddReminderRoute = route == Routes.addReminders
-                            let buttonSize = isAddReminderRoute ? addReminderButtonSize : otherButtonSize
-                            
-                            if isAddReminderRoute
-                            {
-                                FloatActionButton(route: route, buttonSize: buttonSize)
-                            } else {
-                                GATabItem(route: route, buttonSize: buttonSize)
-                            }
-                        }
-                    }
+        HStack(
+            alignment: .top,
+            content: {
+                Spacer()
+                ForEach(tabs, id: \.self) { route in
+                    let isAddReminderRoute = route == Routes.addAgenda
                     
-                })
-            .background{
-                WhiteBackdropBlurView()
+                    if isAddReminderRoute {
+                        FloatActionButton(route: route, buttonSize: addReminderButtonSize)
+                    } else {
+                        GATabItem(route: route, buttonSize: otherButtonSize)
+                    }
+                }
+                Spacer()
             }
+        )
+        .frame(width: containerWidth, height: containerHeight, alignment: .top)
+        .background {
+            WhiteBackdropBlurView()
         }
-        .padding(.horizontal, horizontalPadding)
-        .frame(height: containerHeight)
     }
     
     @ViewBuilder
     func GATabItem(route: Routes, buttonSize: CGFloat) -> some View {
         @State var isActive = route == selectedTab
         
+        let animationDuration: TimeInterval = 0.3
+        let extraBounceRate = 0.5
+        
         HStack(
             alignment: .center,
             content: {
-                Spacer()
                 ZStack(
                     alignment: Alignment(
                         horizontal: .center,
@@ -106,8 +95,8 @@ struct GABottomBarView: View {
                             .offset(y: 0)
                             .animation(
                                 isActive
-                                ? .bouncy(duration: 0.3, extraBounce: 0.5)
-                                : .linear(duration: 0.15),
+                                    ? .bouncy(duration: animationDuration, extraBounce: extraBounceRate)
+                                    : .linear(duration: animationDuration / 2),
                                 value: isActive
                             )
                         
@@ -118,24 +107,24 @@ struct GABottomBarView: View {
                                 .dynamicTypeSize(.xSmall)
                                 .fontWeight(.semibold)
                                 .rotation3DEffect(.degrees(isActive ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                                .animation(.linear(duration: 0.3), value: isActive)
+                                .animation(.linear(duration: animationDuration), value: isActive)
                                 .opacity(isActive ? 1 : 0)
                             
-                            createTogShape(type: route.shape)
+                            createGAShape(type: route.shape)
                                 .foregroundColor(isActive ? .yellow1 : .grey2)
                                 .frame(width: 24, height: 24)
                                 .opacity(isActive ? 0 : 1)
-                                .animation(.linear(duration: 0.15), value: isActive)
+                                .animation(.linear(duration: animationDuration / 2), value: isActive)
                         }
                         .frame(width: buttonSize, height: buttonSize)
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            withAnimation() {
+                            withAnimation {
                                 selectedTab = route
                             }
                         }
-                    })
-                Spacer()
+                    }
+                )
             }
         )
     }
@@ -146,31 +135,27 @@ struct GABottomBarView: View {
             selectedTab = route
         }
         
-        HStack {
-            Spacer()
-            ZStack(
-                alignment: Alignment(horizontal: .center, vertical: .center),
-                content: {
-                    Rectangle()
-                        .fill(
-                            AngularGradient(gradient: Gradient(colors: [.yellow1, .yellow2, .yellow1]), center: .center, startAngle: .degrees(45), endAngle: .degrees(405))
-                        )
-                        .frame(width: buttonSize,height: buttonSize)
-                        .cornerRadius(26.0)
-                        .shadow(color: .black.opacity(0.32), radius: 12, y: 2)
-                    
-                    Image(systemName: "plus")
-                        .font(Font.title.weight(.regular))
-                        .foregroundColor(.white)
-                }
-            ).offset(y: -10)
-            Spacer()
-        }
-        .gesture(tabGesture)
+        ZStack(
+            alignment: Alignment(horizontal: .center, vertical: .center),
+            content: {
+                Rectangle()
+                    .fill(
+                        AngularGradient(gradient: Gradient(colors: [.yellow1, .yellow2, .yellow1]), center: .center, startAngle: .degrees(45), endAngle: .degrees(405))
+                    )
+                    .frame(width: buttonSize, height: buttonSize)
+                    .cornerRadius(26.0)
+                    .shadow(color: .black.opacity(0.32), radius: 12, y: 2)
+                
+                Image(systemName: "plus")
+                    .font(Font.title.weight(.regular))
+                    .foregroundColor(.white)
+            }
+        ).offset(y: -10)
+            .frame(width: buttonSize, height: buttonSize)
+            .gesture(tabGesture)
     }
 }
 
 #Preview {
     GABottomBarView()
 }
-

@@ -5,10 +5,13 @@
 //  Created by Yongmin Kim on 2024-06-23.
 //
 
+// SVG -> Shape: https://github.com/bring-shrubbery/SVG-to-SwiftUI
+
 import Foundation
 import SwiftUI
 
 enum GAShapes {
+    case calendarBlankShape
     case chartTimelineVariantShimmer
     case checkboxMarkedCirclePlusOutline
     case cog
@@ -19,9 +22,10 @@ enum GAShapes {
     case plusThick
 }
 
-
-@ViewBuilder  func createTogShape(type: GAShapes) -> some View {
-    switch(type) {
+@ViewBuilder func createGAShape(type: GAShapes) -> some View {
+    switch type {
+    case .calendarBlankShape:
+        CalendarBlankShape()
     case .chartTimelineVariantShimmer:
         ChartTimelineVariantShimmerShape()
     case .checkboxMarkedCirclePlusOutline:
@@ -496,3 +500,33 @@ private struct PlusThickShape: Shape {
     }
 }
 
+private struct CalendarBlankShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.size.width
+        let height = rect.size.height
+        path.move(to: CGPoint(x: 0.79167*width, y: 0.81263*height))
+        path.addLine(to: CGPoint(x: 0.20833*width, y: 0.81263*height))
+        path.addLine(to: CGPoint(x: 0.20833*width, y: 0.35429*height))
+        path.addLine(to: CGPoint(x: 0.79167*width, y: 0.35429*height))
+        path.move(to: CGPoint(x: 0.66667*width, y: 0.06263*height))
+        path.addLine(to: CGPoint(x: 0.66667*width, y: 0.14596*height))
+        path.addLine(to: CGPoint(x: 0.33333*width, y: 0.14596*height))
+        path.addLine(to: CGPoint(x: 0.33333*width, y: 0.06263*height))
+        path.addLine(to: CGPoint(x: 0.25*width, y: 0.06263*height))
+        path.addLine(to: CGPoint(x: 0.25*width, y: 0.14596*height))
+        path.addLine(to: CGPoint(x: 0.20833*width, y: 0.14596*height))
+        path.addCurve(to: CGPoint(x: 0.125*width, y: 0.22929*height), control1: CGPoint(x: 0.16208*width, y: 0.14596*height), control2: CGPoint(x: 0.125*width, y: 0.18304*height))
+        path.addLine(to: CGPoint(x: 0.125*width, y: 0.81263*height))
+        path.addCurve(to: CGPoint(x: 0.14941*width, y: 0.87155*height), control1: CGPoint(x: 0.125*width, y: 0.83473*height), control2: CGPoint(x: 0.13378*width, y: 0.85593*height))
+        path.addCurve(to: CGPoint(x: 0.20833*width, y: 0.89596*height), control1: CGPoint(x: 0.16504*width, y: 0.88718*height), control2: CGPoint(x: 0.18623*width, y: 0.89596*height))
+        path.addLine(to: CGPoint(x: 0.79167*width, y: 0.89596*height))
+        path.addCurve(to: CGPoint(x: 0.85059*width, y: 0.87155*height), control1: CGPoint(x: 0.81377*width, y: 0.89596*height), control2: CGPoint(x: 0.83496*width, y: 0.88718*height))
+        path.addCurve(to: CGPoint(x: 0.875*width, y: 0.81263*height), control1: CGPoint(x: 0.86622*width, y: 0.85593*height), control2: CGPoint(x: 0.875*width, y: 0.83473*height))
+        path.addLine(to: CGPoint(x: 0.875*width, y: 0.22929*height))
+        path.addCurve(to: CGPoint(x: 0.79167*width, y: 0.14596*height), control1: CGPoint(x: 0.875*width, y: 0.18304*height), control2: CGPoint(x: 0.8375*width, y: 0.14596*height))
+        path.addLine(to: CGPoint(x: 0.75*width, y: 0.14596*height))
+        path.addLine(to: CGPoint(x: 0.75*width, y: 0.06263*height))
+        return path
+    }
+}

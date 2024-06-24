@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TransparentBlurView: UIViewRepresentable {
-    
     var removeAllFilters: Bool = false
     
     func makeUIView(context: Context) -> TransparentBlurViewHelper {
@@ -16,14 +15,10 @@ struct TransparentBlurView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: TransparentBlurViewHelper, context: Context) {
-        
-    }
-    
+    func updateUIView(_ uiView: TransparentBlurViewHelper, context: Context) {}
 }
 
 class TransparentBlurViewHelper: UIVisualEffectView {
-    
     init(removeAllFilters: Bool) {
         super.init(effect: UIBlurEffect(style: .systemUltraThinMaterial))
         
@@ -44,13 +39,12 @@ class TransparentBlurViewHelper: UIVisualEffectView {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        
-    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {}
 }
 
 struct WhiteBackdropBlurView: View {
@@ -76,4 +70,3 @@ struct WhiteBackdropBlurView: View {
 #Preview {
     WhiteBackdropBlurView()
 }
-

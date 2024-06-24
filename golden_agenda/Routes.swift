@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 enum Routes: String, CaseIterable {
-    case addReminders = "Add reminders"
-    case reminders = "Agenda"
+    case addAgenda = "Add agenda"
+    case agenda = "Agenda"
     case reports = "Reports"
     case rewards = "Rewards"
     case settings = "Settings"
@@ -20,12 +20,12 @@ extension Routes {
     var name: String {
         return self.rawValue.description
     }
-    
+
     var shape: GAShapes {
         switch self {
-        case .addReminders:
+        case .addAgenda:
             return GAShapes.plusThick
-        case .reminders:
+        case .agenda:
             return GAShapes.formatListChecks
         case .reports:
             return GAShapes.chartTimelineVariantShimmer
@@ -37,3 +37,19 @@ extension Routes {
     }
 }
 
+extension Routes: View {
+    var body: some View {
+        switch self {
+        case .addAgenda:
+            AddAgendaView()
+        case .agenda:
+            AgendaView()
+        case .reports:
+            ReportView()
+        case .rewards:
+            RewardView()
+        case .settings:
+            SettingView()
+        }
+    }
+}

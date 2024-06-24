@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct golden_agendaApp: App {
-    
     var body: some Scene {
         WindowGroup {
             GABottomBarView()
+                .foregroundColor(.black1)
         }
     }
 }
