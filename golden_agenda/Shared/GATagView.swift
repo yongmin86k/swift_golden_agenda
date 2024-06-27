@@ -12,31 +12,20 @@ struct GATagView: View {
     var borderColor: Color = .grey2
     var textColor: Color = .grey2
 
-    @State var sizeOfTag: CGSize = .init(width: 32, height: 22)
-
     var body: some View {
-        let radius = CGFloat(sizeOfTag.height / 2)
-
         Text(text)
             .font(.system(.caption, weight: .bold))
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .frame(minWidth: sizeOfTag.width, minHeight: sizeOfTag.height)
             .foregroundColor(textColor)
-            .cornerRadius(radius, antialiased: true)
             .overlay(
-                GeometryReader { proxy in
-                    RoundedRectangle(cornerRadius: radius)
-                        .inset(by: 1)
-                        .strokeBorder(borderColor, lineWidth: 1, antialiased: true)
-                        .onAppear {
-                            self.sizeOfTag = proxy.size
-                        }
-                }
+                Capsule(style: .continuous)
+                    .stroke(borderColor, style: StrokeStyle(lineWidth: 1))
+                    .frame(minWidth: 36, minHeight: 24)
             )
     }
 }
 
 #Preview {
-    GATagView(text: "hello")
+    GATagView(text: "2024")
 }

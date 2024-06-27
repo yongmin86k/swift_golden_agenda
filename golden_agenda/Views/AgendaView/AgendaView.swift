@@ -8,35 +8,40 @@
 import SwiftUI
 
 struct AgendaView: View {
+    @EnvironmentObject var gaAppStore: GAAppStore
+
     var body: some View {
-        let date = Date()
+        let date = gaAppStore.selectedDate
         let calendar = Calendar.current
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
 
         NavigationStack {
-            VStack {
-                HStack {
-                    Button(action: {}, label: { GATagView(text: "\(year)") })
+            VStack(
+                spacing: -8,
+                content: {
+                    HStack {
+                        Button(action: {}, label: { GATagView(text: "\(year)") })
 
-                    Spacer()
+                        Spacer()
 
-                    Button(action: {}, label: {
-                        Text("\(month)".paddingStart(length: 2, chars: "0"))
-                            .foregroundStyle(.grey2)
-                            .font(
-                                .system(size: 59, weight: .thin, design: .default)
-                            )
-                    })
+                        Button(action: {}, label: {
+                            Text("\(month)".paddingStart(length: 2, chars: "0"))
+                                .foregroundStyle(.grey2)
+                                .font(
+                                    .system(size: 59, weight: .thin, design: .default)
+                                )
+                        })
 
-                    Spacer()
+                        Spacer()
 
-                    Button(action: {}, label: { GATagView(text: "Today") })
+                        Button(action: {}, label: { GATagView(text: "Today") })
+                    }
+                    .safeAreaPadding(.horizontal)
+
+                    AgendaWheel()
                 }
-                .safeAreaPadding(.horizontal)
-
-                Spacer()
-            }
+            )
             .GABackground()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -80,5 +85,5 @@ struct AgendaView: View {
 }
 
 #Preview {
-    AgendaView()
+    AgendaView().environmentObject(GAAppStore())
 }

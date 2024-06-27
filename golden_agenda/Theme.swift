@@ -26,13 +26,15 @@ extension UIColor {
 
 private struct GABackgroundViewModifier: ViewModifier {
     func body(content: Content) -> some View {
-        ZStack {
-            Color.grey1.ignoresSafeArea()
+        ZStack(
+            alignment: Alignment(horizontal: .center, vertical: .top),
+            content: {
+                Color.grey1.ignoresSafeArea()
 
-            content
-        }
-        .foregroundColor(.black1)
-        .edgesIgnoringSafeArea(.bottom)
+                content
+            })
+            .foregroundColor(.black1)
+            .edgesIgnoringSafeArea(.bottom)
     }
 }
 

@@ -16,12 +16,14 @@ var tabs = [
 ]
 
 struct GABottomBarView: View {
-    @State var selectedTab = Routes.agenda
+    @EnvironmentObject var gaAppStore: GAAppStore
     
+    @State var selectedTab = Routes.agenda
+        
     var showBottomTab: Bool = true
     
     var body: some View {
-        GeometryReader { size in
+        GeometryReader { proxy in
             ZStack(
                 alignment:
                 Alignment(
@@ -35,9 +37,13 @@ struct GABottomBarView: View {
                     }
                 }
                                 
-                GATabBar(parentSize: size)
+                GATabBar(parentSize: proxy)
             }
             .ignoresSafeArea()
+            .preference(key: SizePreferenceKey.self, value: proxy.size)
+            .onPreferenceChange(SizePreferenceKey.self) { value in
+                gaAppStore.screenSize = value
+            }
         }
     }
     
@@ -156,6 +162,13 @@ struct GABottomBarView: View {
     }
 }
 
+private struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
+    }
+}
+
 #Preview {
-    GABottomBarView()
+    GABottomBarView().environmentObject(GAAppStore())
 }
