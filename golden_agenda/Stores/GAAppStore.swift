@@ -8,9 +8,19 @@
 import SwiftUI
 
 final class GAAppStore: ObservableObject {
-    @Published var screenSize: CGSize = .zero
+    @Published var screenSize: CGSize
+    @Published var selectedDate: Date
+    @Published var deviceOrientation: UIDeviceOrientation
+    // Ref: https://www.hackingwithswift.com/example-code/uikit/how-to-check-whether-an-iphone-or-ipad-is-upside-down-or-face-up
     
-    @Published var selectedDate: Date = Date()
+    init() {
+        self.screenSize = .zero
+        self.selectedDate = Date()
+        self.deviceOrientation = .portrait
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: UIDevice.orientationDidChangeNotification, object: nil)
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+    }
 
     var dateInWheel: [Date] {
         get {
@@ -18,5 +28,9 @@ final class GAAppStore: ObservableObject {
             
             return arr.map{selectedDate.addingDays($0)}
         }
+    }
+    
+    @objc private func orientationChanged() {
+        self.deviceOrientation = UIDevice.current.orientation
     }
 }

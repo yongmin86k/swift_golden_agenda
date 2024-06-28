@@ -26,7 +26,6 @@ struct AgendaWheel: View {
                 }
             )
             .frame(width: drawableSize.width, height: drawableSize.height)
-            .clipped()
         }
     }
 
