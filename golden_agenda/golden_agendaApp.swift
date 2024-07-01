@@ -9,17 +9,17 @@ import SwiftUI
 
 @main
 struct golden_agendaApp: App {
-    @StateObject var gaAppStore = GAAppStore()
+    @StateObject var gaAppState = GAAppState()
     
     var body: some Scene {
         WindowGroup {
             GABottomBarView()
                 .foregroundColor(.black1)
-                .environmentObject(gaAppStore)
+                .environmentObject(gaAppState)
         }
     }
 }
 
 #Preview {
-    GABottomBarView().environmentObject(GAAppStore())
+    GABottomBarView().globalPreviewInjection()
 }

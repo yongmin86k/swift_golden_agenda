@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AgendaWheel: View {
-    @EnvironmentObject var gaAppStore: GAAppStore
+    @EnvironmentObject var gaAppState: GAAppState
 
     var body: some View {
         GeometryReader { proxy in
@@ -38,12 +38,10 @@ struct AgendaWheel: View {
 
     @ViewBuilder
     func Days(diameter: CGFloat) -> some View {
-        let totalDays = Double(gaAppStore.dateInWheel.count)
-        let selectedDateIndex = gaAppStore.dateInWheel.firstIndex(of: gaAppStore.selectedDate)!
+        let selectedDateIndex = gaAppState.selectedDateIndex
 
-        ForEach(gaAppStore.dateInWheel, id: \.self) { date in
-            let index = gaAppStore.dateInWheel.firstIndex(of: date)!
-            let offset = Double(index - selectedDateIndex)
+        ForEach(gaAppState.dateInWheel, id: \.self) { date in
+            let index = gaAppState.getDateItemIndex(date: date)
             let isCurrent = selectedDateIndex == index
 
             let calendar = Calendar.current
@@ -66,17 +64,19 @@ struct AgendaWheel: View {
                         )
                         .foregroundStyle(color)
                         .padding(.bottom, padding)
+
                     Dot(d: dotSize, c: color)
+
                     Spacer()
                 }
             )
             .frame(height: diameter)
             .offset(y: offsetPositionY)
-            .rotationEffect(.degrees(360 / totalDays * offset))
+            .rotationEffect(gaAppState.getDateItemDegree(date: date))
         }
     }
 }
 
 #Preview {
-    AgendaWheel().environmentObject(GAAppStore())
+    AgendaWheel().environmentObject(GAAppState())
 }

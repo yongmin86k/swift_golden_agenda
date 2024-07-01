@@ -16,7 +16,8 @@ var tabs = [
 ]
 
 struct GABottomBarView: View {
-    @EnvironmentObject var gaAppStore: GAAppStore
+    @EnvironmentObject var gaAppState: GAAppState
+    @EnvironmentObject var gaDeviceState: GADeviceState
     
     @State var selectedTab = Routes.agenda
         
@@ -42,7 +43,7 @@ struct GABottomBarView: View {
             .ignoresSafeArea()
             .preference(key: SizePreferenceKey.self, value: proxy.size)
             .onPreferenceChange(SizePreferenceKey.self) { value in
-                gaAppStore.screenSize = value
+                gaDeviceState.screenSize = value
             }
         }
     }
@@ -82,8 +83,8 @@ struct GABottomBarView: View {
     func GATabItem(route: Routes, buttonSize: CGFloat) -> some View {
         @State var isActive = route == selectedTab
         
-        let animationDuration: TimeInterval = 0.3
-        let extraBounceRate = 0.5
+        let animationDuration = gaAppState.animationDefaultDuration
+        let extraBounceRate = gaAppState.animationExtraBounceRate
         
         HStack(
             alignment: .center,
@@ -170,5 +171,5 @@ private struct SizePreferenceKey: PreferenceKey {
 }
 
 #Preview {
-    GABottomBarView().environmentObject(GAAppStore())
+    GABottomBarView().globalPreviewInjection()
 }

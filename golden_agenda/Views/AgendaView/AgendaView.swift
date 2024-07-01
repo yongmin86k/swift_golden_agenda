@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct AgendaView: View {
-    @EnvironmentObject var gaAppStore: GAAppStore
+    @EnvironmentObject var gaAppState: GAAppState
+    @EnvironmentObject var gaDeviceState: GADeviceState
+
+    @State var currentAmount = Angle.zero
 
     var body: some View {
-        let date = gaAppStore.selectedDate
+        let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
@@ -44,6 +47,8 @@ struct AgendaView: View {
                         alignment: Alignment(horizontal: .center, vertical: .top),
                         content: {
                             AgendaWheel()
+                                .rotationEffect(currentAmount)
+                                .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
 
                             DraggableArea()
                         }
@@ -58,19 +63,34 @@ struct AgendaView: View {
 
     @ViewBuilder
     func DraggableArea() -> some View {
-        let date = gaAppStore.selectedDate
+        let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let weekdayIndex: Int = calendar.component(.weekday, from: date) - 1
         let dayName: String = DateFormatter().weekdaySymbols[weekdayIndex]
         // Ref: https://developer.apple.com/documentation/foundation/calendar/2293235-weekdaysymbols
 
-        let height = CGFloat(gaAppStore.screenSize.height * 0.16)
+        let height = CGFloat(gaDeviceState.screenSize.height * 0.16)
+
+        let gesture = DragGesture()
+            .onChanged { value in
+                let moveBy = Angle.degrees(value.translation.width) / 5
+
+                currentAmount = moveBy
+            }
+            .onEnded { _ in
+                withAnimation {
+                    let offsetIndex = Int((-currentAmount.degrees / 12).rounded(.toNearestOrAwayFromZero))
+                    let newIndex = gaAppState.selectedDateIndex + offsetIndex
+                    gaAppState.selectedDate = gaAppState.dateInWheel[newIndex]
+
+                    currentAmount = .zero
+                }
+            }
 
         VStack(
             alignment: .center,
             content: {
                 Spacer()
-                
 
                 Text(dayName)
                     .font(.system(size: 12, weight: .bold))
@@ -91,11 +111,13 @@ struct AgendaView: View {
                             .foregroundStyle(.yellow1)
                     }
                 )
-                
+
                 Color.clear.frame(height: 16)
             }
         )
         .frame(height: height)
+        .contentShape(Rectangle())
+        .gesture(gesture)
     }
 
     @ToolbarContentBuilder
@@ -121,7 +143,7 @@ struct AgendaView: View {
             content: {
                 Button(
                     action: {
-                        print(gaAppStore.selectedDate)
+                        print(gaAppState.selectedDate)
                     }
                 ) {
                     ZStack {
@@ -137,14 +159,16 @@ struct AgendaView: View {
     }
 }
 
-#Preview {
-    var gaAppStore = GAAppStore()
+#Preview(traits: .defaultLayout) {
+    var gaDeviceState = GADeviceState()
 
-    let previewSize = gaAppStore.deviceOrientation == .portrait
+    let previewSize = gaDeviceState.deviceOrientation == .portrait
         ? CGSize(width: 393, height: 759)
         : CGSize(width: 734, height: 372)
 
-    gaAppStore.screenSize = previewSize
+    gaDeviceState.screenSize = previewSize
 
-    return AgendaView().environmentObject(gaAppStore)
+    return AgendaView()
+        .environmentObject(GAAppState())
+        .environmentObject(gaDeviceState)
 }

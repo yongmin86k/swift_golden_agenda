@@ -40,6 +40,33 @@ private struct GABackgroundViewModifier: ViewModifier {
 
 extension View {
     func GABackground() -> some View {
-        self.modifier(GABackgroundViewModifier())
+        modifier(GABackgroundViewModifier())
+    }
+}
+
+struct MyFont: ViewModifier {
+        public enum TextStyle {
+        case title
+        case body
+        case label
+    }
+
+    var textStyle: TextStyle
+
+    func body(content: Content) -> some View {
+        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
+        
+        return content.font(.system(size: scaledSize, weight: .semibold))
+    }
+
+    private var size: CGFloat {
+        switch textStyle {
+        case .title:
+            return 26
+        case .body:
+            return 16
+        case .label:
+            return 12
+        }
     }
 }
