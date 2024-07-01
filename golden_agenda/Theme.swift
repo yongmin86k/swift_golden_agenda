@@ -44,29 +44,54 @@ extension View {
     }
 }
 
-struct MyFont: ViewModifier {
-        public enum TextStyle {
-        case title
+struct GAFont: ViewModifier {
+    @Environment(\.sizeCategory) var sizeCategory
+
+    public enum TextStyle {
+        case title1
+        case title2
         case body
-        case label
+        case footnote1
+        case footnote2
     }
 
     var textStyle: TextStyle
 
-    func body(content: Content) -> some View {
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        
-        return content.font(.system(size: scaledSize, weight: .semibold))
-    }
-
     private var size: CGFloat {
         switch textStyle {
-        case .title:
-            return 26
+        case .title1:
+            return 28
+        case .title2:
+            return 20
         case .body:
             return 16
-        case .label:
+        case .footnote1:
+            return 14
+        case .footnote2:
             return 12
         }
+    }
+
+    private var weight: Font.Weight {
+        switch textStyle {
+        case .title2, .footnote1:
+            return .semibold
+        case .title1, .body:
+            return .regular
+        case .footnote2:
+            return .bold
+        }
+    }
+
+    func body(content: Content) -> some View {
+        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
+
+        return content.font(.system(size: scaledSize, weight: weight))
+    }
+}
+
+extension View {
+    func gaTypography(_ textStyle: GAFont.TextStyle) -> some View {
+        modifier(GAFont(textStyle: textStyle))
     }
 }

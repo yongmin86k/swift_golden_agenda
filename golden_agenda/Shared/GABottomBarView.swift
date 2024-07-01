@@ -111,8 +111,7 @@ struct GABottomBarView: View {
                             Text(route.name)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(isActive ? .yellow1 : .grey2)
-                                .dynamicTypeSize(.xSmall)
-                                .fontWeight(.semibold)
+                                .gaTypography(.footnote1)
                                 .rotation3DEffect(.degrees(isActive ? 0 : 180), axis: (x: 0, y: 1, z: 0))
                                 .animation(.linear(duration: animationDuration), value: isActive)
                                 .opacity(isActive ? 1 : 0)
@@ -154,7 +153,7 @@ struct GABottomBarView: View {
                     .shadow(color: .black.opacity(0.32), radius: 12, y: 2)
                 
                 Image(systemName: "plus")
-                    .font(Font.title.weight(.regular))
+                    .gaTypography(.title1)
                     .foregroundColor(.white)
             }
         ).offset(y: -10)

@@ -14,7 +14,7 @@ struct GATagView: View {
 
     var body: some View {
         Text(text)
-            .font(.system(.caption, weight: .bold))
+            .gaTypography(.footnote2)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .foregroundColor(textColor)

@@ -56,7 +56,17 @@ struct AgendaView: View {
                                 .rotationEffect(currentAmount)
                                 .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
 
-                            DraggableArea()
+                            VStack(
+                                spacing: 0,
+                                content: {
+                                    DraggableArea()
+
+                                    Group {
+                                        WhiteBackdropBlurView()
+                                    }
+                                    .padding(.horizontal, 16)
+                                }
+                            )
                         }
                     )
                 }
@@ -99,7 +109,7 @@ struct AgendaView: View {
                 Spacer()
 
                 Text(dayName)
-                    .font(.system(size: 12, weight: .bold))
+                    .gaTypography(.footnote2)
                     .foregroundStyle(.black1)
                     .textCase(.uppercase)
                     .padding(.bottom, 2)
@@ -108,11 +118,11 @@ struct AgendaView: View {
                     spacing: 20,
                     content: {
                         Text("Current points")
-                            .font(.system(size: 12, weight: .bold))
+                            .gaTypography(.footnote2)
                             .foregroundStyle(.grey2)
 
                         Text("0")
-                            .font(.system(size: 12, weight: .bold))
+                            .gaTypography(.footnote2)
                             .multilineTextAlignment(.trailing)
                             .foregroundStyle(.yellow1)
                     }
@@ -133,8 +143,7 @@ struct AgendaView: View {
             content: {
                 HStack {
                     Text("Overview")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .gaTypography(.title2)
 
                     Image(systemName: "chevron.down")
                         .font(.system(size: 6, weight: .semibold, design: .default))
