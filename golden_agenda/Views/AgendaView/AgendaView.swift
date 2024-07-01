@@ -21,12 +21,22 @@ struct AgendaView: View {
 
         NavigationStack {
             VStack(
+                alignment: .center,
                 spacing: 0,
                 content: {
-                    HStack {
-                        Button(action: {}, label: { GATagView(text: "\(year)") })
+                    ZStack {
+                        HStack {
+                            Button(action: {}, label: { GATagView(text: "\(year)") })
 
-                        Spacer()
+                            Spacer()
+
+                            Button(
+                                action: {
+                                    withAnimation { gaAppState.selectedDate = Date() }
+                                },
+                                label: { GATagView(text: "Today") }
+                            )
+                        }
 
                         Button(action: {}, label: {
                             Text("\(month)".paddingStart(length: 2, chars: "0"))
@@ -35,10 +45,6 @@ struct AgendaView: View {
                                     .system(size: 59, weight: .thin, design: .default)
                                 )
                         })
-
-                        Spacer()
-
-                        Button(action: {}, label: { GATagView(text: "Today") })
                     }
                     .safeAreaPadding(.horizontal)
                     .clipped()
