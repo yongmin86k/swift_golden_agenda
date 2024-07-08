@@ -13,6 +13,8 @@ struct AgendaView: View {
 
     @State var currentAmount = Angle.zero
 
+    @State var backgroundContainerHeight: Double = .zero
+
     var body: some View {
         let date = gaAppState.selectedDate
         let calendar = Calendar.current
@@ -50,21 +52,34 @@ struct AgendaView: View {
                     .clipped()
 
                     ZStack(
-                        alignment: Alignment(horizontal: .center, vertical: .top),
+                        alignment: .top,
                         content: {
+                            let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
+
                             AgendaWheel()
                                 .rotationEffect(currentAmount)
                                 .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
 
+                            GADottedView(type: .uneven)
+                                .padding(.horizontal, 28)
+                                .frame(height: backgroundContainerHeight + 16)
+                                .offset(y: draggableHeight - 16)
+
                             VStack(
                                 spacing: 0,
                                 content: {
-                                    DraggableArea()
+                                    DraggableArea(height: draggableHeight)
 
-                                    Group {
+                                    GeometryReader { geometry in
+
                                         WhiteBackdropBlurView()
+                                            .padding(.horizontal, 16)
+                                            .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
+                                            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
+
+                                                backgroundContainerHeight = value.height
+                                            }
                                     }
-                                    .padding(.horizontal, 16)
                                 }
                             )
                         }
@@ -78,14 +93,12 @@ struct AgendaView: View {
     }
 
     @ViewBuilder
-    func DraggableArea() -> some View {
+    func DraggableArea(height: CGFloat) -> some View {
         let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let weekdayIndex: Int = calendar.component(.weekday, from: date) - 1
         let dayName: String = DateFormatter().weekdaySymbols[weekdayIndex]
         // Ref: https://developer.apple.com/documentation/foundation/calendar/2293235-weekdaysymbols
-
-        let height = CGFloat(gaDeviceState.screenSize.height * 0.16)
 
         let gesture = DragGesture()
             .onChanged { value in
@@ -112,7 +125,6 @@ struct AgendaView: View {
                     .gaTypography(.footnote2)
                     .foregroundStyle(.black1)
                     .textCase(.uppercase)
-                    .padding(.bottom, 2)
 
                 HStack(
                     spacing: 20,
@@ -128,7 +140,7 @@ struct AgendaView: View {
                     }
                 )
 
-                Color.clear.frame(height: 16)
+                Color.clear.frame(height: 24)
             }
         )
         .frame(height: height)
@@ -174,8 +186,15 @@ struct AgendaView: View {
     }
 }
 
+private struct ContentSizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
+    }
+}
+
 #Preview(traits: .defaultLayout) {
-    var gaDeviceState = GADeviceState()
+    let gaDeviceState = GADeviceState()
 
     let previewSize = gaDeviceState.deviceOrientation == .portrait
         ? CGSize(width: 393, height: 759)
