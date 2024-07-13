@@ -20,7 +20,7 @@ struct GABottomBarView: View {
     @EnvironmentObject var gaDeviceState: GADeviceState
     
     @State var selectedTab = Routes.agenda
-        
+
     var showBottomTab: Bool = true
     
     var body: some View {

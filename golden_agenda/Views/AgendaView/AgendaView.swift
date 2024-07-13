@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct AgendaView: View {
+//    @Environment(\.managedObjectContext) private var viewContext
+
     @EnvironmentObject var gaAppState: GAAppState
     @EnvironmentObject var gaDeviceState: GADeviceState
 
-    @State var currentAmount = Angle.zero
+    // MARK: State variables
 
+    @State var currentAmount = Angle.zero
     @State var backgroundContainerHeight: Double = .zero
+
+//    @FetchRequest(sortDescriptors: []) private var agendas: FetchedResults<AgendaEntity>
 
     var body: some View {
         let date = gaAppState.selectedDate
@@ -71,14 +76,28 @@ struct AgendaView: View {
                                     DraggableArea(height: draggableHeight)
 
                                     GeometryReader { geometry in
+                                        ZStack(
+                                            content: {
+                                                Color.clear
 
-                                        WhiteBackdropBlurView()
-                                            .padding(.horizontal, 16)
-                                            .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
-                                            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
-
-                                                backgroundContainerHeight = value.height
+                                                Button(
+                                                    action: {
+                                                        CoreDataStack.instance.random()
+                                                    }, label: {
+                                                        Text("Click to add")
+                                                    }
+                                                )
                                             }
+                                        )
+                                        .background(
+                                            WhiteBackdropBlurView()
+                                        )
+                                        .padding(.horizontal, 16)
+                                        .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
+                                        .onPreferenceChange(ContentSizePreferenceKey.self) { value in
+
+                                            backgroundContainerHeight = value.height
+                                        }
                                     }
                                 }
                             )
