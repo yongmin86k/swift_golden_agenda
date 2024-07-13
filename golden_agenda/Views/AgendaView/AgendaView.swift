@@ -3,13 +3,11 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://developer.apple.com/documentation/foundation/calendar/2293235-weekdaysymbols
 
 import SwiftUI
 
 struct AgendaView: View {
-//    @Environment(\.managedObjectContext) private var viewContext
-
     @EnvironmentObject var gaAppState: GAAppState
     @EnvironmentObject var gaDeviceState: GADeviceState
 
@@ -17,15 +15,17 @@ struct AgendaView: View {
 
     @State var currentAmount = Angle.zero
     @State var backgroundContainerHeight: Double = .zero
+    
+    @StateObject var gaAppStorage = GAAppStorage()
 
-//    @FetchRequest(sortDescriptors: []) private var agendas: FetchedResults<AgendaEntity>
-
+    // MARK: body
+    
     var body: some View {
         let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
-
+        
         NavigationStack {
             VStack(
                 alignment: .center,
@@ -34,9 +34,9 @@ struct AgendaView: View {
                     ZStack {
                         HStack {
                             Button(action: {}, label: { GATagView(text: "\(year)") })
-
+                            
                             Spacer()
-
+                            
                             Button(
                                 action: {
                                     withAnimation { gaAppState.selectedDate = Date() }
@@ -44,7 +44,7 @@ struct AgendaView: View {
                                 label: { GATagView(text: "Today") }
                             )
                         }
-
+                        
                         Button(action: {}, label: {
                             Text("\(month)".paddingStart(length: 2, chars: "0"))
                                 .foregroundStyle(.grey2)
@@ -55,50 +55,27 @@ struct AgendaView: View {
                     }
                     .safeAreaPadding(.horizontal)
                     .clipped()
-
+                    
                     ZStack(
                         alignment: .top,
                         content: {
                             let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
-
+                            
                             AgendaWheel()
                                 .rotationEffect(currentAmount)
                                 .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
-
+                            
                             GADottedView(type: .uneven)
                                 .padding(.horizontal, 28)
                                 .frame(height: backgroundContainerHeight + 16)
                                 .offset(y: draggableHeight - 16)
-
+                            
                             VStack(
                                 spacing: 0,
                                 content: {
                                     DraggableArea(height: draggableHeight)
-
-                                    GeometryReader { geometry in
-                                        ZStack(
-                                            content: {
-                                                Color.clear
-
-                                                Button(
-                                                    action: {
-                                                        CoreDataStack.instance.random()
-                                                    }, label: {
-                                                        Text("Click to add")
-                                                    }
-                                                )
-                                            }
-                                        )
-                                        .background(
-                                            WhiteBackdropBlurView()
-                                        )
-                                        .padding(.horizontal, 16)
-                                        .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
-                                        .onPreferenceChange(ContentSizePreferenceKey.self) { value in
-
-                                            backgroundContainerHeight = value.height
-                                        }
-                                    }
+                                    
+                                    ContentArea()
                                 }
                             )
                         }
@@ -110,14 +87,41 @@ struct AgendaView: View {
             .toolbar(content: GAToolBarContent)
         }
     }
+    // MARK: ContentArea
+    @ViewBuilder
+    func ContentArea() -> some View {
+        GeometryReader { geometry in
+            ZStack(
+                content: {
+                    WhiteBackdropBlurView()
 
+                    Button(
+                        action: {
+                            //  Testing
+                            
+                            gaAppStorage.rewardEarned += 1
+                        }, label: {
+                            Text("Click to add")
+                        }
+                    )
+                }
+            )
+            .padding(.horizontal, 16)
+            .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
+            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
+
+                backgroundContainerHeight = value.height
+            }
+        }
+    }
+
+    // MARK: DraggableArea
     @ViewBuilder
     func DraggableArea(height: CGFloat) -> some View {
         let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let weekdayIndex: Int = calendar.component(.weekday, from: date) - 1
         let dayName: String = DateFormatter().weekdaySymbols[weekdayIndex]
-        // Ref: https://developer.apple.com/documentation/foundation/calendar/2293235-weekdaysymbols
 
         let gesture = DragGesture()
             .onChanged { value in
@@ -138,6 +142,8 @@ struct AgendaView: View {
         VStack(
             alignment: .center,
             content: {
+                let curentPoint = String(gaAppStorage.currentPoint)
+                
                 Spacer()
 
                 Text(dayName)
@@ -152,7 +158,7 @@ struct AgendaView: View {
                             .gaTypography(.footnote2)
                             .foregroundStyle(.grey2)
 
-                        Text("0")
+                        Text(curentPoint)
                             .gaTypography(.footnote2)
                             .multilineTextAlignment(.trailing)
                             .foregroundStyle(.yellow1)
@@ -167,6 +173,7 @@ struct AgendaView: View {
         .gesture(gesture)
     }
 
+    // MARK: GAToolBarContent
     @ToolbarContentBuilder
     func GAToolBarContent() -> some ToolbarContent {
         ToolbarItem(

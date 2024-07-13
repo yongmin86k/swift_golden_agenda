@@ -132,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				9B0BFEEC2C28A87C009F007F /* Assets.xcassets */,
+				9B696E292C425A4400D3365E /* GAAppStorage.swift */,
 				9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */,
 				9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */,
 				9B0BFEEF2C28A87C009F007F /* Preview Content */,
@@ -185,7 +186,6 @@
 			children = (
 				9B60A6DD2C2A11180092A667 /* GAAppState.swift */,
 				9B3EBF9D2C2E92F9002DA262 /* GADeviceState.swift */,
-				9B696E292C425A4400D3365E /* GAAppStorage.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
