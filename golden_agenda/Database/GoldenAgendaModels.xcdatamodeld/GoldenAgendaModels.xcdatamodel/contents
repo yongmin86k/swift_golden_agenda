@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="Category title" spotlightIndexingEnabled="YES"/>
+        <relationship name="categoryToMain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainAgendaEntity" inverseName="mainToCategory" inverseEntity="MainAgendaEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+                <constraint value="title"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="ChildAgendaEntity" representedClassName="ChildAgendaEntity" parentEntity="MainAgendaEntity" syncable="YES">
+        <attribute name="childId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="show" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="childToMainAgenda" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainAgendaEntity" inverseName="mainToChildAgenda" inverseEntity="MainAgendaEntity"/>
+        <relationship name="childToMetadata" maxCount="1" deletionRule="Cascade" destinationEntity="MetadataEntity" inverseName="metadataToChild" inverseEntity="MetadataEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="childId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="MainAgendaEntity" representedClassName="MainAgendaEntity" syncable="YES">
+        <attribute name="detail" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="pointEarned" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="pointLost" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="Agenda title" spotlightIndexingEnabled="YES"/>
+        <relationship name="mainToCategory" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CategoryEntity" inverseName="categoryToMain" inverseEntity="CategoryEntity"/>
+        <relationship name="mainToChildAgenda" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChildAgendaEntity" inverseName="childToMainAgenda" inverseEntity="ChildAgendaEntity"/>
+        <relationship name="mainToMetadata" maxCount="1" deletionRule="Cascade" destinationEntity="MetadataEntity" inverseName="metadataToMain" inverseEntity="MetadataEntity"/>
+        <relationship name="mainToRepeat" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="RepeatEntity" inverseName="repeatToMain" inverseEntity="RepeatEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+                <constraint value="title"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="MetadataEntity" representedClassName="MetadataEntity" syncable="YES">
+        <attribute name="agendaId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="completedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deletedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastModifiedDate" attributeType="Date" derived="YES" derivationExpression="now()" usesScalarValueType="NO"/>
+        <relationship name="metadataToChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChildAgendaEntity" inverseName="childToMetadata" inverseEntity="ChildAgendaEntity"/>
+        <relationship name="metadataToMain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainAgendaEntity" inverseName="mainToMetadata" inverseEntity="MainAgendaEntity"/>
+    </entity>
+    <entity name="RepeatEntity" representedClassName="RepeatEntity" syncable="YES">
+        <attribute name="agendaId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="every" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isTimeSet" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="remintAt" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="untilAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="repeatToMain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainAgendaEntity" inverseName="mainToRepeat" inverseEntity="MainAgendaEntity"/>
+        <relationship name="repeatToRepeatMetadata" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RepeatMetadataEntity" inverseName="repeatMetadataToRepeat" inverseEntity="RepeatMetadataEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="RepeatMetadataEntity" representedClassName="RepeatMetadataEntity" parentEntity="RepeatEntity" syncable="YES">
+        <attribute name="metaType" attributeType="String"/>
+        <attribute name="metaValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="repeatId" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="repeatMetadataToRepeat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RepeatEntity" inverseName="repeatToRepeatMetadata" inverseEntity="RepeatEntity"/>
+    </entity>
+</model>

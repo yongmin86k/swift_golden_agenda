@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AgendaView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @EnvironmentObject var gaAppState: GAAppState
     @EnvironmentObject var gaDeviceState: GADeviceState
 
@@ -15,17 +17,22 @@ struct AgendaView: View {
 
     @State var currentAmount = Angle.zero
     @State var backgroundContainerHeight: Double = .zero
+
+    @StateObject private var gaAppStorage = GAAppStorage()
     
-    @StateObject var gaAppStorage = GAAppStorage()
+    @StateObject var coreDataStack = CoreDataStack.shared
+    
+//    @FetchRequest(entity: CategoryEntity.entity(), sortDescriptors: [])
+//    private var categories: FetchedResults<CategoryEntity>
 
     // MARK: body
-    
+
     var body: some View {
         let date = gaAppState.selectedDate
         let calendar = Calendar.current
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
-        
+
         NavigationStack {
             VStack(
                 alignment: .center,
@@ -34,9 +41,9 @@ struct AgendaView: View {
                     ZStack {
                         HStack {
                             Button(action: {}, label: { GATagView(text: "\(year)") })
-                            
+
                             Spacer()
-                            
+
                             Button(
                                 action: {
                                     withAnimation { gaAppState.selectedDate = Date() }
@@ -44,7 +51,7 @@ struct AgendaView: View {
                                 label: { GATagView(text: "Today") }
                             )
                         }
-                        
+
                         Button(action: {}, label: {
                             Text("\(month)".paddingStart(length: 2, chars: "0"))
                                 .foregroundStyle(.grey2)
@@ -55,26 +62,26 @@ struct AgendaView: View {
                     }
                     .safeAreaPadding(.horizontal)
                     .clipped()
-                    
+
                     ZStack(
                         alignment: .top,
                         content: {
                             let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
-                            
+
                             AgendaWheel()
                                 .rotationEffect(currentAmount)
                                 .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
-                            
+
                             GADottedView(type: .uneven)
                                 .padding(.horizontal, 28)
                                 .frame(height: backgroundContainerHeight + 16)
                                 .offset(y: draggableHeight - 16)
-                            
+
                             VStack(
                                 spacing: 0,
                                 content: {
                                     DraggableArea(height: draggableHeight)
-                                    
+
                                     ContentArea()
                                 }
                             )
@@ -87,35 +94,70 @@ struct AgendaView: View {
             .toolbar(content: GAToolBarContent)
         }
     }
+
     // MARK: ContentArea
+
     @ViewBuilder
     func ContentArea() -> some View {
         GeometryReader { geometry in
+
             ZStack(
                 content: {
                     WhiteBackdropBlurView()
+                        .frame(height: backgroundContainerHeight)
 
-                    Button(
-                        action: {
-                            //  Testing
+                    ScrollView {
+                        VStack {
+                            // TODO: TESTING
+                            Button(
+                                action: {
+                                    coreDataStack.getCategories()
+                                }, label: {
+                                    Text("Click to View")
+                                }
+                            )
+                            .padding(32)
+
+                            Button(
+                                action: {
+                                    coreDataStack.deleteAllCategories()
+                                }, label: {
+                                    Text("Click to delete all")
+                                }
+                            )
+                            .padding(32)
                             
-                            gaAppStorage.rewardEarned += 1
-                        }, label: {
-                            Text("Click to add")
+                            Button(
+                                action: {
+                                    coreDataStack.addCategory(title: "yayaya", order: 1)
+                                }, label: {
+                                    Text("Click to add")
+                                }
+                            )
+                            .padding(32)
+
+                            ForEach(coreDataStack.categories) { category in
+//                            ForEach(categories) { category in
+                                VStack {
+                                    Text("\(String(category.order))")
+
+                                    Text(category.title ?? "title")
+                                }
+                            }
                         }
-                    )
+                    }
                 }
             )
             .padding(.horizontal, 16)
             .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
             .onPreferenceChange(ContentSizePreferenceKey.self) { value in
-
                 backgroundContainerHeight = value.height
             }
         }
     }
 
     // MARK: DraggableArea
+
     @ViewBuilder
     func DraggableArea(height: CGFloat) -> some View {
         let date = gaAppState.selectedDate
@@ -143,7 +185,7 @@ struct AgendaView: View {
             alignment: .center,
             content: {
                 let curentPoint = String(gaAppStorage.currentPoint)
-                
+
                 Spacer()
 
                 Text(dayName)
@@ -174,6 +216,7 @@ struct AgendaView: View {
     }
 
     // MARK: GAToolBarContent
+
     @ToolbarContentBuilder
     func GAToolBarContent() -> some ToolbarContent {
         ToolbarItem(

@@ -12,10 +12,14 @@ struct golden_agendaApp: App {
     @StateObject var gaAppState = GAAppState()
     @StateObject var gaDeviceState = GADeviceState()
 
+    @StateObject private var coreDataStack = CoreDataStack.shared
+
     var body: some Scene {
         WindowGroup {
             GABottomBarView()
                 .foregroundColor(.black1)
+                .environment(\.managedObjectContext,
+                             coreDataStack.persistentContainer.viewContext)
                 .environmentObject(gaAppState)
                 .environmentObject(gaDeviceState)
         }

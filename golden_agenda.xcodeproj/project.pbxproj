@@ -30,6 +30,20 @@
 		9B60A6DE2C2A11180092A667 /* GAAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B60A6DD2C2A11180092A667 /* GAAppState.swift */; };
 		9B60A6E02C2A15470092A667 /* AgendaWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B60A6DF2C2A15470092A667 /* AgendaWheel.swift */; };
 		9B696E2A2C425A4400D3365E /* GAAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B696E292C425A4400D3365E /* GAAppStorage.swift */; };
+		9B76F1F22C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F02C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld */; };
+		9B76F1FF2C462AD300266B86 /* MetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F32C462AD300266B86 /* MetadataEntity+CoreDataClass.swift */; };
+		9B76F2002C462AD300266B86 /* MetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F42C462AD300266B86 /* MetadataEntity+CoreDataProperties.swift */; };
+		9B76F2012C462AD300266B86 /* RepeatEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F52C462AD300266B86 /* RepeatEntity+CoreDataClass.swift */; };
+		9B76F2022C462AD300266B86 /* RepeatEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F62C462AD300266B86 /* RepeatEntity+CoreDataProperties.swift */; };
+		9B76F2032C462AD300266B86 /* MainAgendaEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F72C462AD300266B86 /* MainAgendaEntity+CoreDataClass.swift */; };
+		9B76F2042C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F82C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift */; };
+		9B76F2052C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1F92C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift */; };
+		9B76F2062C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FA2C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift */; };
+		9B76F2072C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FB2C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift */; };
+		9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FC2C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift */; };
+		9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */; };
+		9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */; };
+		9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F20B2C462CF600266B86 /* CoreDataStack.swift */; };
 		9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +93,20 @@
 		9B60A6DD2C2A11180092A667 /* GAAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAAppState.swift; sourceTree = "<group>"; };
 		9B60A6DF2C2A15470092A667 /* AgendaWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaWheel.swift; sourceTree = "<group>"; };
 		9B696E292C425A4400D3365E /* GAAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAAppStorage.swift; sourceTree = "<group>"; };
+		9B76F1F12C461DBE00266B86 /* GoldenAgendaModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoldenAgendaModels.xcdatamodel; sourceTree = "<group>"; };
+		9B76F1F32C462AD300266B86 /* MetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1F42C462AD300266B86 /* MetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F1F52C462AD300266B86 /* RepeatEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepeatEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1F62C462AD300266B86 /* RepeatEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepeatEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F1F72C462AD300266B86 /* MainAgendaEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainAgendaEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1F82C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainAgendaEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F1F92C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildAgendaEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1FA2C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildAgendaEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F1FB2C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepeatMetadataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1FC2C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepeatMetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F20B2C462CF600266B86 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +159,7 @@
 		9B0BFEE52C28A87A009F007F /* golden_agenda */ = {
 			isa = PBXGroup;
 			children = (
+				9B76F1EF2C461D9700266B86 /* Database */,
 				9B0BFEEC2C28A87C009F007F /* Assets.xcassets */,
 				9B696E292C425A4400D3365E /* GAAppStorage.swift */,
 				9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */,
@@ -253,6 +282,27 @@
 				9B34934F2C28B0F2003489AC /* SettingView.swift */,
 			);
 			path = SettingView;
+			sourceTree = "<group>";
+		};
+		9B76F1EF2C461D9700266B86 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				9B76F1F32C462AD300266B86 /* MetadataEntity+CoreDataClass.swift */,
+				9B76F1F42C462AD300266B86 /* MetadataEntity+CoreDataProperties.swift */,
+				9B76F1F52C462AD300266B86 /* RepeatEntity+CoreDataClass.swift */,
+				9B76F1F62C462AD300266B86 /* RepeatEntity+CoreDataProperties.swift */,
+				9B76F1F72C462AD300266B86 /* MainAgendaEntity+CoreDataClass.swift */,
+				9B76F1F82C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift */,
+				9B76F1F92C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift */,
+				9B76F1FA2C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift */,
+				9B76F1FB2C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift */,
+				9B76F1FC2C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift */,
+				9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */,
+				9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */,
+				9B76F1F02C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld */,
+				9B76F20B2C462CF600266B86 /* CoreDataStack.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,6 +437,7 @@
 			files = (
 				9B2EC05D2C2972BE00873C84 /* StringExtensions.swift in Sources */,
 				9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */,
+				9B76F1F22C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld in Sources */,
 				9B3493402C28AA2F003489AC /* Theme.swift in Sources */,
 				9B696E2A2C425A4400D3365E /* GAAppStorage.swift in Sources */,
 				9B60A6E02C2A15470092A667 /* AgendaWheel.swift in Sources */,
@@ -405,6 +456,19 @@
 				9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */,
 				9B0BFEE72C28A87A009F007F /* golden_agendaApp.swift in Sources */,
 				9B60A6DE2C2A11180092A667 /* GAAppState.swift in Sources */,
+				9B76F1FF2C462AD300266B86 /* MetadataEntity+CoreDataClass.swift in Sources */,
+				9B76F2002C462AD300266B86 /* MetadataEntity+CoreDataProperties.swift in Sources */,
+				9B76F2012C462AD300266B86 /* RepeatEntity+CoreDataClass.swift in Sources */,
+				9B76F2022C462AD300266B86 /* RepeatEntity+CoreDataProperties.swift in Sources */,
+				9B76F2032C462AD300266B86 /* MainAgendaEntity+CoreDataClass.swift in Sources */,
+				9B76F2042C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift in Sources */,
+				9B76F2052C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift in Sources */,
+				9B76F2062C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift in Sources */,
+				9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */,
+				9B76F2072C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift in Sources */,
+				9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */,
+				9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */,
+				9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,6 +827,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9B76F1F02C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9B76F1F12C461DBE00266B86 /* GoldenAgendaModels.xcdatamodel */,
+			);
+			currentVersion = 9B76F1F12C461DBE00266B86 /* GoldenAgendaModels.xcdatamodel */;
+			name = GoldenAgendaModels.xcdatamodeld;
+			path = "/Users/pro_osx/Desktop/my_git/swift-golden-agenda/golden_agenda/Database/GoldenAgendaModels.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9B0BFEDB2C28A87A009F007F /* Project object */;
 }
