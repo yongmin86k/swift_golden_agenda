@@ -43,6 +43,7 @@
 		9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FC2C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift */; };
 		9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */; };
 		9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */; };
+		9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F20B2C462CF600266B86 /* CoreDataStack.swift */; };
 		9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		9B76F1FC2C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepeatMetadataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B76F20B2C462CF600266B86 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -298,6 +300,7 @@
 				9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */,
 				9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */,
 				9B76F1F02C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld */,
+				9B76F20B2C462CF600266B86 /* CoreDataStack.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				9B76F2042C462AD300266B86 /* MainAgendaEntity+CoreDataProperties.swift in Sources */,
 				9B76F2052C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift in Sources */,
 				9B76F2062C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift in Sources */,
+				9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */,
 				9B76F2072C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift in Sources */,
 				9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */,
 				9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */,
