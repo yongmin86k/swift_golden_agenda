@@ -57,6 +57,8 @@ class CoreDataStack: ObservableObject {
         newCategory.order = Int16(order) // TODO: Increment the order as added
         
         save()
+
+        getCategories()
     }
     
     func deleteAllCategories() {

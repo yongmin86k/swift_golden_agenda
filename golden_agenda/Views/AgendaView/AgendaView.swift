@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AgendaView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @EnvironmentObject var gaAppState: GAAppState
     @EnvironmentObject var gaDeviceState: GADeviceState
 
@@ -17,7 +19,11 @@ struct AgendaView: View {
     @State var backgroundContainerHeight: Double = .zero
 
     @StateObject private var gaAppStorage = GAAppStorage()
-    @StateObject private var coreDataStack = CoreDataStack.shared
+    
+    @StateObject var coreDataStack = CoreDataStack.shared
+    
+//    @FetchRequest(entity: CategoryEntity.entity(), sortDescriptors: [])
+//    private var categories: FetchedResults<CategoryEntity>
 
     // MARK: body
 
@@ -120,6 +126,24 @@ struct AgendaView: View {
                                 }
                             )
                             .padding(32)
+                            
+                            Button(
+                                action: {
+                                    coreDataStack.addCategory(title: "yayaya", order: 1)
+                                }, label: {
+                                    Text("Click to add")
+                                }
+                            )
+                            .padding(32)
+
+                            ForEach(coreDataStack.categories) { category in
+//                            ForEach(categories) { category in
+                                VStack {
+                                    Text("\(String(category.order))")
+
+                                    Text(category.title ?? "title")
+                                }
+                            }
                         }
                     }
                 }
