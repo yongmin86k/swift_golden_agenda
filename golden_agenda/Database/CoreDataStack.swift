@@ -49,7 +49,6 @@ class CoreDataStack: ObservableObject {
         }
     }
 
-    
     func addCategory(title: String, order: Int) {
         let newCategory = CategoryEntity(context: persistentContainer.viewContext)
         newCategory.id = UUID()
@@ -61,19 +60,19 @@ class CoreDataStack: ObservableObject {
         getCategories()
     }
     
+    // Ref: https://www.advancedswift.com/batch-delete-everything-core-data-swift/
     func deleteAllCategories() {
-        categories.removeAll()
-        
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         do {
             try persistentContainer.viewContext.execute(deleteRequest)
             save()
+            
+            categories.removeAll()
         } catch {
             print("Error excuting. \(error.localizedDescription)")
         }
-    
     }
     
     private func addFirstCategory() {

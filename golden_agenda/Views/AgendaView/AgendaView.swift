@@ -21,9 +21,6 @@ struct AgendaView: View {
     @StateObject private var gaAppStorage = GAAppStorage()
     
     @StateObject var coreDataStack = CoreDataStack.shared
-    
-//    @FetchRequest(entity: CategoryEntity.entity(), sortDescriptors: [])
-//    private var categories: FetchedResults<CategoryEntity>
 
     // MARK: body
 
@@ -137,7 +134,6 @@ struct AgendaView: View {
                             .padding(32)
 
                             ForEach(coreDataStack.categories) { category in
-//                            ForEach(categories) { category in
                                 VStack {
                                     Text("\(String(category.order))")
 

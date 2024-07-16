@@ -9,22 +9,20 @@ import Foundation
 import SwiftUI
 
 class GAAppStorage: ObservableObject {
-    // MARK: Default device settings
-    @AppStorage("isAppFirstInstalled") var isAppFirstInstalled = false
-    
     // MARK: Default user settings
+
     @AppStorage("defaultAgendaViewType") var defaultAgendaViewType = "overview"
-    @AppStorage("defaultCategory") var defaultCategory = "uncategorized"
-//    @AppStorage("defaultRepeatDate") var defaultRepeatDate = "any"
+    @AppStorage("defaultCategory") var defaultCategory = "Uncategorized"
     @AppStorage("defaultPenaltyPoint") var defaultPenaltyPoint: Int = 0
     @AppStorage("defaultRewardPoint") var defaultRewardPoint: Int = 0
-    
+
     // MARK: Default user information
-    @AppStorage("penaltyEarned") var penaltyEarned: Int = 0
-    @AppStorage("rewardEarned") var rewardEarned: Int = 0
-    @AppStorage("rewardUsed") var rewardUsed: Int = 0
-    
+
+    @AppStorage("pointEarned") var pointEarned: Int = 0
+    @AppStorage("pointLost") var pointLost: Int = 0
+    @AppStorage("pointUsed") var pointUsed: Int = 0
+
     var currentPoint: Int {
-        return rewardEarned - rewardUsed
+        return pointEarned - pointLost - pointUsed
     }
 }
