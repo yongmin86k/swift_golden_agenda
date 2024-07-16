@@ -16,7 +16,8 @@ struct AgendaView: View {
     @State var currentAmount = Angle.zero
     @State var backgroundContainerHeight: Double = .zero
 
-    @StateObject var gaAppStorage = GAAppStorage()
+    @StateObject private var gaAppStorage = GAAppStorage()
+    @StateObject private var coreDataStack = CoreDataStack.shared
 
     // MARK: body
 
@@ -100,16 +101,26 @@ struct AgendaView: View {
                         .frame(height: backgroundContainerHeight)
 
                     ScrollView {
-                        Button(
-                            action: {
-                                //  Testing
+                        VStack {
+                            // TODO: TESTING
+                            Button(
+                                action: {
+                                    coreDataStack.getCategories()
+                                }, label: {
+                                    Text("Click to View")
+                                }
+                            )
+                            .padding(32)
 
-                                gaAppStorage.rewardEarned += 1
-                            }, label: {
-                                Text("Click to add")
-                            }
-                        )
-                        .padding(32)
+                            Button(
+                                action: {
+                                    coreDataStack.deleteAllCategories()
+                                }, label: {
+                                    Text("Click to delete all")
+                                }
+                            )
+                            .padding(32)
+                        }
                     }
                 }
             )
