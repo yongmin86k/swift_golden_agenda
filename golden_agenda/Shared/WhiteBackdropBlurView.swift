@@ -3,7 +3,7 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://www.youtube.com/watch?v=vl5k8DeM5Z0
 
 import SwiftUI
 

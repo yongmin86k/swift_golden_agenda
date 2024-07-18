@@ -103,7 +103,7 @@ struct AgendaOverviewView: View {
             Button(
                 action: {
                     withAnimation {
-                        gaRouter.selectedTab = .addAgenda
+                        gaRouter.pushTo(.addAgenda)
                     }
                 }, label: {
                     Text("Add a new agenda")

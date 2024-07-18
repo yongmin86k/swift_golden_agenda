@@ -3,7 +3,8 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://medium.com/@drevathy/custom-themes-with-color-assets-in-swift-9e64f91ee45d
+//  Ref: https://www.hackingwithswift.com/quick-start/swiftui/how-to-use-dynamic-type-with-a-custom-font
 
 import SwiftUI
 import UIKit

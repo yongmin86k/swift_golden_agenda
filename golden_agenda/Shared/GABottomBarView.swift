@@ -3,7 +3,7 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://mobileappsacademy.medium.com/custom-bottom-tab-bar-swiftui-17749b6a0a5b
 
 import SwiftUI
 
@@ -19,8 +19,6 @@ struct GABottomBarView: View {
     @EnvironmentObject private var gaAppState: GAAppState
     @EnvironmentObject private var gaDeviceState: GADeviceState
     @EnvironmentObject private var gaRouter: GARouter
-
-    var showBottomTab: Bool = true
     
     var body: some View {
         GeometryReader { proxy in
@@ -31,13 +29,15 @@ struct GABottomBarView: View {
                     vertical: .bottom
                 )
             ) {
-                TabView(selection: $gaRouter.selectedTab) {
+                TabView(selection: $gaRouter.routes.last) {
                     ForEach(tabs, id: \.self) { route in
                         route.body.tag(route)
                     }
                 }
-                                
-                GATabBar(parentSize: proxy)
+                
+                if gaRouter.selectedTab != .addAgenda {
+                    GATabBar(parentSize: proxy)
+                }
             }
             .ignoresSafeArea()
             .preference(key: SizePreferenceKey.self, value: proxy.size)
@@ -80,7 +80,6 @@ struct GABottomBarView: View {
     
     @ViewBuilder
     func GATabItem(route: Routes, buttonSize: CGFloat) -> some View {
-//        @State var isActive = route == selectedTab
         let isActive = gaRouter.isActive(route)
         
         let animationDuration = gaAppState.animationDefaultDuration
@@ -125,8 +124,14 @@ struct GABottomBarView: View {
                         .frame(width: buttonSize, height: buttonSize)
                         .contentShape(Rectangle())
                         .onTapGesture {
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                                withAnimation {
+//                                    gaRouter.pushTo(route)
+//                                }
+//                            }
+                            
                             withAnimation {
-                                gaRouter.selectedTab = route
+                                gaRouter.pushTo(route)
                             }
                         }
                     }
@@ -138,7 +143,7 @@ struct GABottomBarView: View {
     @ViewBuilder
     func FloatActionButton(route: Routes, buttonSize: CGFloat) -> some View {
         let tabGesture = TapGesture().onEnded {
-            gaRouter.selectedTab = route
+            gaRouter.pushTo(route)
         }
         
         ZStack(

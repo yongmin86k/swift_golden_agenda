@@ -12,6 +12,7 @@ struct AgendaView: View {
 
     @EnvironmentObject private var gaAppState: GAAppState
     @EnvironmentObject private var gaDeviceState: GADeviceState
+    @EnvironmentObject private var gaRouter: GARouter
 
     // MARK: State variables
 
@@ -232,4 +233,5 @@ private struct ContentSizePreferenceKey: PreferenceKey {
     return AgendaView()
         .environmentObject(GAAppState())
         .environmentObject(gaDeviceState)
+        .environmentObject(GARouter())
 }
