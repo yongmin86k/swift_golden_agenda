@@ -4,6 +4,7 @@
 //
 //  Created by Yongmin Kim on 2024-07-15.
 //  Ref: https://developer.apple.com/documentation/coredata
+//  Ref: https://github.com/SwiftfulThinking/SwiftUI-Continued-Learning
 
 import CoreData
 

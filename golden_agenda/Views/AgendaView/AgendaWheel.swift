@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AgendaWheel: View {
     @EnvironmentObject var gaAppState: GAAppState
+    
+    @State private var wheelSize: CGSize = .zero
 
     var body: some View {
         GeometryReader { proxy in

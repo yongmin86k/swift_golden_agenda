@@ -45,7 +45,7 @@ struct GABottomBarView: View {
             .onPreferenceChange(SizePreferenceKey.self) { value in
                 gaDeviceState.screenSize = value
             }
-        }
+        }                    
     }
     
     @ViewBuilder

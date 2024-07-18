@@ -44,6 +44,8 @@
 		9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */; };
 		9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */; };
 		9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76F20B2C462CF600266B86 /* CoreDataStack.swift */; };
+		9B86A8C52C484B3E006CD755 /* AgendaOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */; };
+		9B86A8C72C484B9F006CD755 /* GABorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B86A8C62C484B9F006CD755 /* GABorderView.swift */; };
 		9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
 /* End PBXBuildFile section */
@@ -107,6 +109,8 @@
 		9B76F1FD2C462AD300266B86 /* CategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9B76F1FE2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9B76F20B2C462CF600266B86 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaOverviewView.swift; sourceTree = "<group>"; };
+		9B86A8C62C484B9F006CD755 /* GABorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GABorderView.swift; sourceTree = "<group>"; };
 		9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,6 +231,7 @@
 				9B2EC0592C2953BA00873C84 /* GATagView.swift */,
 				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
 				9BF0EA242C3BBF0C00759236 /* GADottedView.swift */,
+				9B86A8C62C484B9F006CD755 /* GABorderView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 			children = (
 				9B60A6DF2C2A15470092A667 /* AgendaWheel.swift */,
 				9B3493542C28B105003489AC /* AgendaView.swift */,
+				9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */,
 			);
 			path = AgendaView;
 			sourceTree = "<group>";
@@ -445,8 +451,10 @@
 				9B2EC05A2C2953BA00873C84 /* GATagView.swift in Sources */,
 				9B3493482C28AB84003489AC /* GABottomBarView.swift in Sources */,
 				9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */,
+				9B86A8C72C484B9F006CD755 /* GABorderView.swift in Sources */,
 				9B3493502C28B0F2003489AC /* SettingView.swift in Sources */,
 				9B3493462C28AB61003489AC /* WhiteBackdropBlurView.swift in Sources */,
+				9B86A8C52C484B3E006CD755 /* AgendaOverviewView.swift in Sources */,
 				9B3EBF9E2C2E92F9002DA262 /* GADeviceState.swift in Sources */,
 				9B3493582C28B1D7003489AC /* RewardView.swift in Sources */,
 				9B3493422C28AA72003489AC /* Routes.swift in Sources */,

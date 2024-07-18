@@ -103,45 +103,7 @@ struct AgendaView: View {
                     WhiteBackdropBlurView()
                         .frame(height: backgroundContainerHeight)
 
-                    ScrollView {
-                        VStack {
-                            // TODO: TESTING
-                            Button(
-                                action: {
-                                    coreDataStack.getCategories()
-                                }, label: {
-                                    Text("Click to View")
-                                }
-                            )
-                            .padding(32)
-
-                            Button(
-                                action: {
-                                    coreDataStack.deleteAllCategories()
-                                }, label: {
-                                    Text("Click to delete all")
-                                }
-                            )
-                            .padding(32)
-                            
-                            Button(
-                                action: {
-                                    coreDataStack.addCategory(title: "yayaya", order: 1)
-                                }, label: {
-                                    Text("Click to add")
-                                }
-                            )
-                            .padding(32)
-
-                            ForEach(coreDataStack.categories) { category in
-                                VStack {
-                                    Text("\(String(category.order))")
-
-                                    Text(category.title ?? "title")
-                                }
-                            }
-                        }
-                    }
+                    AgendaOverviewView()
                 }
             )
             .padding(.horizontal, 16)
@@ -180,6 +142,7 @@ struct AgendaView: View {
         VStack(
             alignment: .center,
             content: {
+                // TODO: add a thousand separator
                 let curentPoint = String(gaAppStorage.currentPoint)
 
                 Spacer()
