@@ -44,7 +44,7 @@ class CoreDataStack: ObservableObject {
         do {
             categories = try persistentContainer.viewContext.fetch(request)
             
-            print("Categories: \(categories.count)")
+            // print("Categories: \(categories.count)")
         } catch {
             print("Error fetching. \(error.localizedDescription)")
         }

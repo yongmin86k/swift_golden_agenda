@@ -47,6 +47,7 @@
 		9B86A8C52C484B3E006CD755 /* AgendaOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */; };
 		9B86A8C72C484B9F006CD755 /* GABorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B86A8C62C484B9F006CD755 /* GABorderView.swift */; };
 		9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */; };
+		9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF45532C48F48D00EDC459 /* GARouter.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaOverviewView.swift; sourceTree = "<group>"; };
 		9B86A8C62C484B9F006CD755 /* GABorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GABorderView.swift; sourceTree = "<group>"; };
 		9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		9BAF45532C48F48D00EDC459 /* GARouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GARouter.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,6 +221,7 @@
 			children = (
 				9B60A6DD2C2A11180092A667 /* GAAppState.swift */,
 				9B3EBF9D2C2E92F9002DA262 /* GADeviceState.swift */,
+				9BAF45532C48F48D00EDC459 /* GARouter.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */,
 				9B76F2072C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift in Sources */,
 				9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */,
+				9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */,
 				9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */,
 				9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */,
 			);

@@ -9,8 +9,9 @@ import SwiftUI
 
 @main
 struct golden_agendaApp: App {
-    @StateObject var gaAppState = GAAppState()
-    @StateObject var gaDeviceState = GADeviceState()
+    @StateObject private var gaAppState = GAAppState()
+    @StateObject private var gaDeviceState = GADeviceState()
+    @StateObject private var gaRouter = GARouter()
 
     @StateObject private var coreDataStack = CoreDataStack.shared
 
@@ -22,6 +23,7 @@ struct golden_agendaApp: App {
                              coreDataStack.persistentContainer.viewContext)
                 .environmentObject(gaAppState)
                 .environmentObject(gaDeviceState)
+                .environmentObject(gaRouter)
         }
     }
 }

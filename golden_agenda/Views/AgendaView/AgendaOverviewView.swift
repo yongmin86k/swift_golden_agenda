@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AgendaOverviewView: View {
+    @EnvironmentObject private var gaRouter: GARouter
+    
     @State private var squareSize = CGFloat.zero
 
     var body: some View {
@@ -100,7 +102,9 @@ struct AgendaOverviewView: View {
             
             Button(
                 action: {
-                    print("hi")
+                    withAnimation {
+                        gaRouter.selectedTab = .addAgenda
+                    }
                 }, label: {
                     Text("Add a new agenda")
                         .gaTypography(.body)
@@ -122,5 +126,5 @@ struct AgendaOverviewView: View {
 }
 
 #Preview {
-    AgendaOverviewView()
+    AgendaOverviewView().globalPreviewInjection()
 }

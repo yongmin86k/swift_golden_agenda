@@ -19,6 +19,7 @@ struct GlobalPreviewInjectionModifier: ViewModifier {
         content
             .environmentObject(GAAppState())
             .environmentObject(GADeviceState())
+            .environmentObject(GARouter())
     }
 }
 

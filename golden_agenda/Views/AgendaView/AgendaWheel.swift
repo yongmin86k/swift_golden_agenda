@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AgendaWheel: View {
-    @EnvironmentObject var gaAppState: GAAppState
+    @EnvironmentObject private var gaAppState: GAAppState
     
     @State private var wheelSize: CGSize = .zero
 

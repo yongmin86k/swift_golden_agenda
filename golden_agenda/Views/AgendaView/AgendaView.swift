@@ -10,17 +10,16 @@ import SwiftUI
 struct AgendaView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @EnvironmentObject var gaAppState: GAAppState
-    @EnvironmentObject var gaDeviceState: GADeviceState
+    @EnvironmentObject private var gaAppState: GAAppState
+    @EnvironmentObject private var gaDeviceState: GADeviceState
 
     // MARK: State variables
 
-    @State var currentAmount = Angle.zero
-    @State var backgroundContainerHeight: Double = .zero
+    @State private var currentAmount = Angle.zero
+    @State private var backgroundContainerHeight: Double = .zero
 
     @StateObject private var gaAppStorage = GAAppStorage()
-    
-    @StateObject var coreDataStack = CoreDataStack.shared
+    @StateObject private var coreDataStack = CoreDataStack.shared
 
     // MARK: body
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct RewardView: View {
     
     var body: some View {
-        Text("hello world")
+        Text("Reward")
     }
 }
 

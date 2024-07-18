@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddAgendaView: View {
     var body: some View {
-        Text("hello world")
+        Text("add")
     }
 }
 
