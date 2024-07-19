@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B095FF32C49E3E60063132C /* GAContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B095FF22C49E3E60063132C /* GAContentView.swift */; };
 		9B0BFEE72C28A87A009F007F /* golden_agendaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */; };
 		9B0BFEED2C28A87C009F007F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BFEEC2C28A87C009F007F /* Assets.xcassets */; };
 		9B0BFEF12C28A87C009F007F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BFEF02C28A87C009F007F /* Preview Assets.xcassets */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B095FF22C49E3E60063132C /* GAContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAContentView.swift; sourceTree = "<group>"; };
 		9B0BFEE32C28A87A009F007F /* golden_agenda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = golden_agenda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaApp.swift; sourceTree = "<group>"; };
 		9B0BFEEC2C28A87C009F007F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,16 +167,16 @@
 		9B0BFEE52C28A87A009F007F /* golden_agenda */ = {
 			isa = PBXGroup;
 			children = (
-				9B76F1EF2C461D9700266B86 /* Database */,
-				9B0BFEEC2C28A87C009F007F /* Assets.xcassets */,
-				9B696E292C425A4400D3365E /* GAAppStorage.swift */,
 				9B0BFEEE2C28A87C009F007F /* golden_agenda.entitlements */,
+				9B696E292C425A4400D3365E /* GAAppStorage.swift */,
 				9B0BFEE62C28A87A009F007F /* golden_agendaApp.swift */,
-				9B0BFEEF2C28A87C009F007F /* Preview Content */,
 				9B3493412C28AA72003489AC /* Routes.swift */,
+				9B34933F2C28AA2F003489AC /* Theme.swift */,
+				9B0BFEEC2C28A87C009F007F /* Assets.xcassets */,
+				9B76F1EF2C461D9700266B86 /* Database */,
+				9B0BFEEF2C28A87C009F007F /* Preview Content */,
 				9B34933E2C28AA1B003489AC /* Shared */,
 				9B2EC0612C298B2D00873C84 /* States */,
-				9B34933F2C28AA2F003489AC /* Theme.swift */,
 				9B2EC05B2C2972AB00873C84 /* Utils */,
 				9B3493492C28AED6003489AC /* Views */,
 			);
@@ -229,7 +231,6 @@
 		9B34933E2C28AA1B003489AC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9B3493472C28AB84003489AC /* GABottomBarView.swift */,
 				9B3493432C28AAAA003489AC /* GAShapes.swift */,
 				9B2EC0592C2953BA00873C84 /* GATagView.swift */,
 				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
@@ -242,6 +243,8 @@
 		9B3493492C28AED6003489AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9B3493472C28AB84003489AC /* GABottomBarView.swift */,
+				9B095FF22C49E3E60063132C /* GAContentView.swift */,
 				9B34934B2C28B06B003489AC /* AddAgendaView */,
 				9B34934A2C28AF1A003489AC /* AgendaView */,
 				9B34934C2C28B0C3003489AC /* ReportView */,
@@ -444,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B095FF32C49E3E60063132C /* GAContentView.swift in Sources */,
 				9B2EC05D2C2972BE00873C84 /* StringExtensions.swift in Sources */,
 				9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */,
 				9B76F1F22C461DBE00266B86 /* GoldenAgendaModels.xcdatamodeld in Sources */,

@@ -11,11 +11,14 @@ struct AddAgendaView: View {
     @EnvironmentObject private var gaRouter: GARouter
 
     var body: some View {
-        Button(action: {
-            gaRouter.goBack()
-        }, label: {
-            Text("add")
-        })
+        NavigationStack {
+            Button(action: {
+                gaRouter.goBack()
+            }, label: {
+                Text("add")
+            })
+            .GABackground()
+        }
     }
 }
 

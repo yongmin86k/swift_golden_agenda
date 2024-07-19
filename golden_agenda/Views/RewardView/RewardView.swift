@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct RewardView: View {
-    
     var body: some View {
-        Text("Reward")
+        NavigationStack {
+            Text("Reward")
+                .GABackground()
+        }
     }
 }
 
 #Preview {
     RewardView()
 }
-

@@ -17,8 +17,9 @@ struct golden_agendaApp: App {
 
     var body: some Scene {
         WindowGroup {
-            GABottomBarView()
+            GAContentView()
                 .foregroundColor(.black1)
+                .background(Color.grey1)
                 .environment(\.managedObjectContext,
                              coreDataStack.persistentContainer.viewContext)
                 .environmentObject(gaAppState)
@@ -29,5 +30,5 @@ struct golden_agendaApp: App {
 }
 
 #Preview {
-    GABottomBarView().globalPreviewInjection()
+    GAContentView().globalPreviewInjection()
 }
