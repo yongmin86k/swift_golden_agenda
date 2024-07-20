@@ -142,7 +142,7 @@ struct GABottomBarView: View {
     }
 }
 
-private struct SizePreferenceKey: PreferenceKey {
+private struct BottomBarSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()

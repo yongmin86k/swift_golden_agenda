@@ -23,25 +23,27 @@ struct GAContentView: View {
             ) {
                 Color.grey1
 
-                // TODO: create transition animation controller when navigating other screens.
-                // There is default animation fired when screen changes.
                 NavigationStack {
                     gaRouter.selectedTab.body
                         .GABackground()
+                }
+                .transaction { transaction in
+                    // Ref: https://www.avanderlee.com/swiftui/disable-animations-transactions/
+                    transaction.animation = nil
                 }
 
                 GABottomBarView(proxy)
             }
             .ignoresSafeArea()
-            .preference(key: SizePreferenceKey.self, value: proxy.size)
-            .onPreferenceChange(SizePreferenceKey.self) { value in
+            .preference(key: ContentSizePreferenceKey.self, value: proxy.size)
+            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
                 gaDeviceState.screenSize = value
             }
         }
     }
 }
 
-private struct SizePreferenceKey: PreferenceKey {
+private struct ContentSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()

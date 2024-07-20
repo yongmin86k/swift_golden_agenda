@@ -3,7 +3,7 @@
 //  golden agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://stackoverflow.com/questions/77366385/how-to-bind-environment-globally-to-all-swiftui-previews
 
 import SwiftUI
 

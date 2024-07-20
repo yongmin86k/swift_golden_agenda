@@ -104,8 +104,8 @@ struct AgendaView: View {
                 }
             )
             .padding(.horizontal, 16)
-            .preference(key: ContentSizePreferenceKey.self, value: geometry.size)
-            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
+            .preference(key: AgendaContentSizePreferenceKey.self, value: geometry.size)
+            .onPreferenceChange(AgendaContentSizePreferenceKey.self) { value in
                 backgroundContainerHeight = value.height
             }
         }
@@ -211,7 +211,7 @@ struct AgendaView: View {
     }
 }
 
-private struct ContentSizePreferenceKey: PreferenceKey {
+private struct AgendaContentSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()

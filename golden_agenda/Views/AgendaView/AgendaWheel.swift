@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AgendaWheel: View {
     @EnvironmentObject private var gaAppState: GAAppState
-    
+
     @State private var wheelSize: CGSize = .zero
 
     var body: some View {
@@ -66,6 +66,9 @@ struct AgendaWheel: View {
                         )
                         .foregroundStyle(color)
                         .padding(.bottom, padding)
+                        .transaction { transaction in
+                            transaction.animation = nil
+                        }
 
                     Dot(d: dotSize, c: color)
 

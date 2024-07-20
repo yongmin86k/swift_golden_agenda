@@ -3,7 +3,8 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-27.
-//  Ref: https://stackoverflow.com/questions/77366385/how-to-bind-environment-globally-to-all-swiftui-previews
+//  Ref: https://www.fivestars.blog/articles/flexible-swiftui/
+//  Ref: https://betterprogramming.pub/geometryreader-blessing-or-curse-1ebd2d5005ec
 
 import CoreData
 import SwiftUI
@@ -24,14 +25,18 @@ struct GlobalPreviewInjectionModifier: ViewModifier {
 }
 
 extension View {
-  func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
+    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
     background(
       GeometryReader { geometryProxy in
         Color.clear
           .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
       }
     )
-    .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    .onPreferenceChange(SizePreferenceKey.self, perform: { size in
+        DispatchQueue.main.async {
+            onChange(size)
+        }
+    })
   }
 }
 
