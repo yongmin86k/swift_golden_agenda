@@ -20,7 +20,7 @@ struct AgendaView: View {
     // MARK: State variables
 
     @State private var currentAmount = Angle.zero
-    @State private var backgroundContainerHeight: Double = .zero
+    @State private var backgroundContainerHeight = CGFloat.zero
 
     // MARK: body
 
@@ -63,6 +63,7 @@ struct AgendaView: View {
                     alignment: .top,
                     content: {
                         let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
+                        let startOffset = draggableHeight - 16
                         let show = gaRouter.isActive(.agenda)
 
                         AgendaWheel()
@@ -70,10 +71,9 @@ struct AgendaView: View {
                             .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
 
                         GADottedView(.uneven)
-                            .padding(.horizontal, 28)
                             .frame(height: backgroundContainerHeight + 16)
-                            .offset(y: show ? draggableHeight - 16 : backgroundContainerHeight + 16)
-                            .animation(.easeInOut(duration: 0.7), value: show)
+                            .padding(.horizontal, 28)
+                            .offsetWithAnimation(.background, show, startOffset, startOffset + backgroundContainerHeight)
 
                         VStack(
                             spacing: 0,
@@ -81,8 +81,7 @@ struct AgendaView: View {
                                 DraggableArea(height: draggableHeight)
 
                                 ContentArea()
-                                    .offset(y: show ? 0 : backgroundContainerHeight)
-                                    .animation(.bouncy(duration: 0.4, extraBounce: 0.1), value: show)
+                                    .offsetWithAnimation(.foreground, show, 0, backgroundContainerHeight)
                             }
                         )
                     }
@@ -96,22 +95,12 @@ struct AgendaView: View {
 
     @ViewBuilder
     func ContentArea() -> some View {
-        GeometryReader { geometry in
+        ZStack {
+            WhiteBackdropBlurView().readSize { backgroundContainerHeight = $0.height }
 
-            ZStack(
-                content: {
-                    WhiteBackdropBlurView()
-                        .frame(height: backgroundContainerHeight)
-
-                    AgendaOverviewView()
-                }
-            )
-            .padding(.horizontal, 16)
-            .preference(key: AgendaContentSizePreferenceKey.self, value: geometry.size)
-            .onPreferenceChange(AgendaContentSizePreferenceKey.self) { value in
-                backgroundContainerHeight = value.height
-            }
+            AgendaOverviewView()
         }
+        .padding(.horizontal, 16)
     }
 
     // MARK: DraggableArea
@@ -175,24 +164,24 @@ struct AgendaView: View {
     }
 }
 
-private struct AgendaContentSizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
-    }
-}
-
 #Preview(traits: .defaultLayout) {
     let gaDeviceState = GADeviceState()
 
+    // TODO: read preview name
     let previewSize = gaDeviceState.deviceOrientation == .portrait
         ? CGSize(width: 393, height: 759)
         : CGSize(width: 734, height: 372)
 
     gaDeviceState.screenSize = previewSize
 
-    return AgendaView()
-        .environmentObject(GAAppState())
-        .environmentObject(gaDeviceState)
-        .environmentObject(GARouter())
+    return NavigationStack {
+        AgendaView()
+            .environmentObject(GAAppState())
+            .environmentObject(gaDeviceState)
+            .environmentObject(GARouter())
+            .GABackground()
+            .toolbar {
+                AgendaToolbar()
+            }
+    }
 }

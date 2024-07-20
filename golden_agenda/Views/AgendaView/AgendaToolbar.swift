@@ -33,7 +33,7 @@ func AgendaToolbar() -> some ToolbarContent {
                 }
             ) {
                 ZStack {
-                    createGAShape(type: .calendarBlankShape)
+                    createGAShape(.calendarBlankShape)
                         .frame(width: 24, height: 24)
                         .offset(x: 2)
                 }

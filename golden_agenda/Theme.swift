@@ -51,7 +51,8 @@ struct GAFont: ViewModifier {
     public enum TextStyle {
         case title1
         case title2
-        case body
+        case input1
+        case body1
         case footnote1
         case footnote2
     }
@@ -64,7 +65,9 @@ struct GAFont: ViewModifier {
             return 28
         case .title2:
             return 20
-        case .body:
+        case .input1:
+            return 18
+        case .body1:
             return 16
         case .footnote1:
             return 14
@@ -77,7 +80,7 @@ struct GAFont: ViewModifier {
         switch textStyle {
         case .title2, .footnote1:
             return .semibold
-        case .title1, .body:
+        case .title1, .input1, .body1:
             return .regular
         case .footnote2:
             return .bold
@@ -87,7 +90,7 @@ struct GAFont: ViewModifier {
     func body(content: Content) -> some View {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
 
-        return content.font(.system(size: scaledSize, weight: weight))
+        return content.font(.system(size: scaledSize, weight: weight, design: .default))
     }
 }
 

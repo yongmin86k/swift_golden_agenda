@@ -9,8 +9,6 @@ import SwiftUI
 
 struct AgendaOverviewView: View {
     @EnvironmentObject private var gaRouter: GARouter
-    
-    @State private var squareSize = CGFloat.zero
 
     var body: some View {
         ScrollView {
@@ -37,53 +35,38 @@ struct AgendaOverviewView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)
                 
-                GABorderView {
-                    EmptyAgenda()
-                }
-                .padding(.horizontal, 12)
+                EmptyAgenda()
+                    .padding(.horizontal, 12)
             }
         }
     }
     
     @ViewBuilder
     func twoColumn() -> some View {
-        HStack(
-            spacing: 12,
-            content: {
-                GABorderView {
-                    VStack(
-                        alignment: .leading,
-                        content: {
-                            Text("Point flow")
-                                .gaTypography(.footnote2)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    )
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 10)
-                    .padding(.top, 12)
-                    .frame(height: squareSize, alignment: .topLeading)
+        HStack(spacing: 12, content: {
+            VStack(
+                alignment: .leading,
+                content: {
+                    Text("Point flow")
+                        .gaTypography(.footnote2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    Button(action: { print("testing") }, label: { Text("yayaya") })
                 }
-                .readSize {
-                    squareSize = $0.width
+            )
+            .modifier(addSquareBorderModifier())
+                
+            VStack(
+                alignment: .leading,
+                content: {
+                    Text("Rewards")
+                        .gaTypography(.footnote2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-
-                GABorderView {
-                    VStack(
-                        alignment: .leading,
-                        content: {
-                            Text("Rewards")
-                                .gaTypography(.footnote2)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    )
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 8)
-                    .padding(.top, 12)
-                    .frame(height: squareSize, alignment: .topLeading)
-                }
-            }
-        )
+            )
+            .modifier(addSquareBorderModifier())
+            
+        })
     }
     
     @ViewBuilder
@@ -95,7 +78,7 @@ struct AgendaOverviewView: View {
                 .foregroundColor(.grey2)
                 .padding(.top, 12)
             
-            createGAShape(type: .checkboxMarkedCirclePlusOutline)
+            createGAShape(.checkboxMarkedCirclePlusOutline)
                 .frame(width: 36, height: 36)
                 .padding(.vertical, 8)
                 .foregroundColor(.yellow1)
@@ -107,13 +90,13 @@ struct AgendaOverviewView: View {
                     }
                 }, label: {
                     Text("Add a new agenda")
-                        .gaTypography(.body)
+                        .gaTypography(.body1)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(
-                            RoundedRectangle(cornerRadius: 20)
+                            Capsule()
                                 .foregroundColor(.yellow1)
                                 .shadow(color: .black1.opacity(0.2), radius: 8, y: 2)
                         )
@@ -122,6 +105,25 @@ struct AgendaOverviewView: View {
             .padding(.bottom, 12)
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/)
+        .background(GABorderView())
+    }
+}
+
+private struct addSquareBorderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal, 8)
+            .padding(.bottom, 10)
+            .padding(.top, 12)
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
+            .aspectRatio(1.0, contentMode: .fill)
+            .background(GABorderView())
     }
 }
 

@@ -94,7 +94,7 @@ struct GABottomBarView: View {
                                 }
                                 .opacity(isActive ? 1 : 0)
                             
-                            createGAShape(type: route.shape)
+                            createGAShape(route.shape)
                                 .foregroundColor(isActive ? .yellow1 : .grey2)
                                 .frame(width: 24, height: 24)
                                 .opacity(isActive ? 0 : 1)
@@ -139,13 +139,6 @@ struct GABottomBarView: View {
         ).offset(y: -10)
             .frame(width: buttonSize, height: buttonSize)
             .gesture(tabGesture)
-    }
-}
-
-private struct BottomBarSizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
     }
 }
 

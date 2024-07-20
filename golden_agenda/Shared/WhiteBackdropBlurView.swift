@@ -50,7 +50,7 @@ class TransparentBlurViewHelper: UIVisualEffectView {
 struct WhiteBackdropBlurView: View {
     var body: some View {
         Rectangle()
-            .foregroundColor(.whiteOp30)
+            .foregroundColor(.whiteOp70)
             .background(
                 TransparentBlurView(removeAllFilters: true)
                     .background(.clear)

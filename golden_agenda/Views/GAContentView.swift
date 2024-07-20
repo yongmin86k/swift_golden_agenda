@@ -45,10 +45,13 @@ struct GAContentView: View {
                 GABottomBarView(proxy)
             }
             .ignoresSafeArea()
-            .preference(key: ContentSizePreferenceKey.self, value: proxy.size)
-            .onPreferenceChange(ContentSizePreferenceKey.self) { value in
-                gaDeviceState.screenSize = value
-            }
+            .task(id: proxy.size.height, {
+                DispatchQueue.main.async {
+                    gaDeviceState.screenSize = proxy.size
+                    
+                    print("ContentView: \(proxy.size)")
+                }
+            })
         }
     }
 
@@ -64,13 +67,6 @@ struct GAContentView: View {
                 .foregroundStyle(.black1)
             }
         )
-    }
-}
-
-private struct ContentSizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
     }
 }
 

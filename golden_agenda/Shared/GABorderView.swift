@@ -7,30 +7,20 @@
 
 import SwiftUI
 
-struct GABorderView<Content: View>: View {
-    var content: () -> Content
-
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-    }
-
+struct GABorderView: View {
     var body: some View {
-        content()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.grey2.opacity(0), .grey2]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ), lineWidth: 1
-                    )
+        return RoundedRectangle(cornerRadius: 8)
+            .stroke(
+                LinearGradient(
+                    gradient: Gradient(colors: [.grey2.opacity(0), .grey2]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                ),
+                lineWidth: 1
             )
     }
 }
 
 #Preview {
-    GABorderView {
-        Text("hello world")
-    }
+    GABorderView()
 }

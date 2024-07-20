@@ -22,7 +22,7 @@ enum GAShapes {
     case plusThick
 }
 
-@ViewBuilder func createGAShape(type: GAShapes) -> some View {
+@ViewBuilder func createGAShape(_ type: GAShapes) -> some View {
     switch type {
     case .calendarBlankShape:
         CalendarBlankShape()
