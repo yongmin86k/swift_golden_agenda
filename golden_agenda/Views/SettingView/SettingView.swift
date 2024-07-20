@@ -9,10 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     var body: some View {
-        NavigationStack {
-            Text("Settings")
-                .GABackground()
-        }
+        Text("Settings")
     }
 }
 

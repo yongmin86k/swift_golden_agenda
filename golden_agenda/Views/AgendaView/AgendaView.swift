@@ -14,13 +14,13 @@ struct AgendaView: View {
     @EnvironmentObject private var gaDeviceState: GADeviceState
     @EnvironmentObject private var gaRouter: GARouter
 
+    @StateObject private var gaAppStorage = GAAppStorage()
+    @StateObject private var coreDataStack = CoreDataStack.shared
+
     // MARK: State variables
 
     @State private var currentAmount = Angle.zero
     @State private var backgroundContainerHeight: Double = .zero
-
-    @StateObject private var gaAppStorage = GAAppStorage()
-    @StateObject private var coreDataStack = CoreDataStack.shared
 
     // MARK: body
 
@@ -30,66 +30,63 @@ struct AgendaView: View {
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
 
-        NavigationStack {
-            VStack(
-                alignment: .center,
-                spacing: 0,
-                content: {
-                    ZStack {
-                        HStack {
-                            Button(action: {}, label: { GATagView(text: "\(year)") })
+        VStack(
+            alignment: .center,
+            spacing: 0,
+            content: {
+                ZStack {
+                    HStack {
+                        Button(action: {}, label: { GATagView(text: "\(year)") })
 
-                            Spacer()
+                        Spacer()
 
-                            Button(
-                                action: {
-                                    withAnimation { gaAppState.selectedDate = Date() }
-                                },
-                                label: { GATagView(text: "Today") }
-                            )
-                        }
-
-                        Button(action: {}, label: {
-                            Text("\(month)".paddingStart(length: 2, chars: "0"))
-                                .foregroundStyle(.grey2)
-                                .font(
-                                    .system(size: 59, weight: .thin, design: .default)
-                                )
-                        })
+                        Button(
+                            action: {
+                                withAnimation { gaAppState.selectedDate = Date() }
+                            },
+                            label: { GATagView(text: "Today") }
+                        )
                     }
-                    .safeAreaPadding(.horizontal)
-                    .clipped()
 
-                    ZStack(
-                        alignment: .top,
-                        content: {
-                            let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
-
-                            AgendaWheel()
-                                .rotationEffect(currentAmount)
-                                .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
-
-                            GADottedView(type: .uneven)
-                                .padding(.horizontal, 28)
-                                .frame(height: backgroundContainerHeight + 16)
-                                .offset(y: draggableHeight - 16)
-
-                            VStack(
-                                spacing: 0,
-                                content: {
-                                    DraggableArea(height: draggableHeight)
-
-                                    ContentArea()
-                                }
+                    Button(action: {}, label: {
+                        Text("\(month)".paddingStart(length: 2, chars: "0"))
+                            .foregroundStyle(.grey2)
+                            .font(
+                                .system(size: 59, weight: .thin, design: .default)
                             )
-                        }
-                    )
+                    })
                 }
-            )
-            .GABackground()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: GAToolBarContent)
-        }
+                .safeAreaPadding(.horizontal)
+                .clipped()
+
+                ZStack(
+                    alignment: .top,
+                    content: {
+                        let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
+
+                        AgendaWheel()
+                            .rotationEffect(currentAmount)
+                            .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
+
+                        GADottedView(type: .uneven)
+                            .padding(.horizontal, 28)
+                            .frame(height: backgroundContainerHeight + 16)
+                            .offset(y: draggableHeight - 16)
+
+                        VStack(
+                            spacing: 0,
+                            content: {
+                                DraggableArea(height: draggableHeight)
+
+                                ContentArea()
+                            }
+                        )
+                    }
+                )
+            }
+        )
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: GAToolBarContent)
     }
 
     // MARK: ContentArea

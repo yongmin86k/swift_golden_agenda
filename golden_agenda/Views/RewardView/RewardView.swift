@@ -9,10 +9,7 @@ import SwiftUI
 
 struct RewardView: View {
     var body: some View {
-        NavigationStack {
-            Text("Reward")
-                .GABackground()
-        }
+        Text("Reward")
     }
 }
 

@@ -9,10 +9,7 @@ import SwiftUI
 
 struct ReportView: View {
     var body: some View {
-        NavigationStack {
-            Text("Report")
-                .GABackground()
-        }
+        Text("Report")
     }
 }
 

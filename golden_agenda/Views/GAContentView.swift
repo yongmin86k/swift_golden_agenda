@@ -22,9 +22,13 @@ struct GAContentView: View {
                 )
             ) {
                 Color.grey1
-                
-                gaRouter.selectedTab.body
-                    .transition(.move(edge: .bottom))
+
+                // TODO: create transition animation controller when navigating other screens.
+                // There is default animation fired when screen changes.
+                NavigationStack {
+                    gaRouter.selectedTab.body
+                        .GABackground()
+                }
 
                 GABottomBarView(proxy)
             }
