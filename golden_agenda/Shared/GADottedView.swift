@@ -31,7 +31,11 @@ private struct DottedShapeView<ShapeContent: InsettableShape>: View {
 }
 
 struct GADottedView: View {
-    var type: GADottedViewType = .rounded
+    var type: GADottedViewType
+
+    init(_ type: GADottedViewType? = .rounded) {
+        self.type = type ?? .rounded
+    }
 
     var body: some View {
         if type == .rounded {
@@ -49,6 +53,6 @@ struct GADottedView: View {
 }
 
 #Preview {
-    GADottedView(type: .rounded)
+    GADottedView()
         .frame(width: 300, height: 200)
 }

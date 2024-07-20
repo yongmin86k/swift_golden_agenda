@@ -63,15 +63,17 @@ struct AgendaView: View {
                     alignment: .top,
                     content: {
                         let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
+                        let show = gaRouter.isActive(.agenda)
 
                         AgendaWheel()
                             .rotationEffect(currentAmount)
                             .animation(.smooth(duration: gaAppState.animationDefaultDuration), value: currentAmount)
 
-                        GADottedView(type: .uneven)
+                        GADottedView(.uneven)
                             .padding(.horizontal, 28)
                             .frame(height: backgroundContainerHeight + 16)
-                            .offset(y: draggableHeight - 16)
+                            .offset(y: show ? draggableHeight - 16 : backgroundContainerHeight + 16)
+                            .animation(.easeInOut(duration: 0.7), value: show)
 
                         VStack(
                             spacing: 0,
@@ -79,6 +81,8 @@ struct AgendaView: View {
                                 DraggableArea(height: draggableHeight)
 
                                 ContentArea()
+                                    .offset(y: show ? 0 : backgroundContainerHeight)
+                                    .animation(.bouncy(duration: 0.4, extraBounce: 0.1), value: show)
                             }
                         )
                     }
@@ -86,7 +90,6 @@ struct AgendaView: View {
             }
         )
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: GAToolBarContent)
     }
 
     // MARK: ContentArea
@@ -169,45 +172,6 @@ struct AgendaView: View {
         .frame(height: height)
         .contentShape(Rectangle())
         .gesture(gesture)
-    }
-
-    // MARK: GAToolBarContent
-
-    @ToolbarContentBuilder
-    func GAToolBarContent() -> some ToolbarContent {
-        ToolbarItem(
-            placement: .principal,
-            content: {
-                HStack {
-                    Text("Overview")
-                        .gaTypography(.title2)
-
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 6, weight: .semibold, design: .default))
-                        .offset(x: -2)
-                }
-                .foregroundStyle(.black1)
-            }
-        )
-
-        ToolbarItem(
-            placement: .primaryAction,
-            content: {
-                Button(
-                    action: {
-                        print(gaAppState.selectedDate)
-                    }
-                ) {
-                    ZStack {
-                        createGAShape(type: .calendarBlankShape)
-                            .frame(width: 24, height: 24)
-                            .offset(x: 2)
-                    }
-                    .frame(width: 30, height: 36)
-                }
-                .foregroundStyle(.black1)
-            }
-        )
     }
 }
 

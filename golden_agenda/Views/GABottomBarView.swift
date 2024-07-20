@@ -8,14 +8,6 @@
 
 import SwiftUI
 
-private var tabs = [
-    Routes.agenda,
-    Routes.rewards,
-    Routes.addAgenda,
-    Routes.reports,
-    Routes.settings,
-]
-
 struct GABottomBarView: View {
     @EnvironmentObject private var gaAppState: GAAppState
     @EnvironmentObject private var gaDeviceState: GADeviceState
@@ -32,14 +24,15 @@ struct GABottomBarView: View {
         let verticalPadding: CGFloat = 12
         let containerWidth: CGFloat = parentSize.size.width - horizontalPadding * 2
         let addReminderButtonSize: CGFloat = 68
-        let otherButtonSize: CGFloat = (containerWidth - addReminderButtonSize) / CGFloat(tabs.count)
+        let otherButtonSize: CGFloat = (containerWidth - addReminderButtonSize) / CGFloat(gaBottomTabs.count)
         let containerHeight: CGFloat = parentSize.safeAreaInsets.bottom + otherButtonSize + verticalPadding
+        let show = !gaRouter.isActive(.addAgenda)
         
         HStack(
             alignment: .top,
             content: {
                 Spacer()
-                ForEach(tabs, id: \.self) { route in
+                ForEach(gaBottomTabs, id: \.self) { route in
                     let isAddReminderRoute = route == Routes.addAgenda
                     
                     if isAddReminderRoute {
@@ -55,11 +48,14 @@ struct GABottomBarView: View {
         .background {
             WhiteBackdropBlurView()
         }
+        .offset(y: show ? 0 : containerHeight + 10)
+        .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 2), value: show)
     }
     
     @ViewBuilder
     func GATabItem(route: Routes, buttonSize: CGFloat) -> some View {
         let isActive = gaRouter.isActive(route)
+        let isAddAgenda = gaRouter.isActive(.addAgenda)
         
         let animationDuration = gaAppState.animationDefaultDuration
         let extraBounceRate = gaAppState.animationExtraBounceRate
@@ -78,12 +74,14 @@ struct GABottomBarView: View {
                             .frame(width: isActive ? buttonSize - 32 : 0, height: 4)
                             .foregroundColor(.yellow1)
                             .offset(y: 0)
-                            .animation(
-                                isActive
-                                    ? .bouncy(duration: animationDuration, extraBounce: extraBounceRate)
-                                    : .linear(duration: animationDuration / 2),
-                                value: isActive
-                            )
+                            .if(!isAddAgenda) {
+                                $0.animation(
+                                    isActive
+                                        ? .bouncy(duration: animationDuration, extraBounce: extraBounceRate)
+                                        : .linear(duration: animationDuration / 2),
+                                    value: isActive
+                                )
+                            }
                         
                         ZStack {
                             Text(route.name)
@@ -91,7 +89,9 @@ struct GABottomBarView: View {
                                 .foregroundColor(isActive ? .yellow1 : .grey2)
                                 .gaTypography(.footnote1)
                                 .rotation3DEffect(.degrees(isActive ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                                .animation(.linear(duration: animationDuration), value: isActive)
+                                .if(!isAddAgenda) {
+                                    $0.animation(.linear(duration: animationDuration), value: isActive)
+                                }
                                 .opacity(isActive ? 1 : 0)
                             
                             createGAShape(type: route.shape)

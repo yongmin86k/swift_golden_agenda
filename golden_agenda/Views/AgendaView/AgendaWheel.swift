@@ -67,6 +67,7 @@ struct AgendaWheel: View {
                         .foregroundStyle(color)
                         .padding(.bottom, padding)
                         .transaction { transaction in
+                            // Ref: https://www.avanderlee.com/swiftui/disable-animations-transactions/
                             transaction.animation = nil
                         }
 

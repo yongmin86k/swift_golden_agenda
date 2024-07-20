@@ -21,15 +21,25 @@ struct GAContentView: View {
                     vertical: .bottom
                 )
             ) {
-                Color.grey1
-
                 NavigationStack {
-                    gaRouter.selectedTab.body
-                        .GABackground()
-                }
-                .transaction { transaction in
-                    // Ref: https://www.avanderlee.com/swiftui/disable-animations-transactions/
-                    transaction.animation = nil
+                    ZStack {
+                        ForEach(gaBottomTabs, id: \.self) { route in
+                            let show = gaRouter.isActive(route)
+
+                            route.body
+                                .opacity(show ? 1 : 0)
+                                .animation(.easeInOut(duration: gaAppState.animationDefaultDuration), value: show)
+                        }
+                    }
+                    .GABackground()
+                    .toolbar {
+                        switch gaRouter.selectedTab {
+                            case .agenda:
+                                AgendaToolbar()
+                            default:
+                                OtherToolbar()
+                        }
+                    }
                 }
 
                 GABottomBarView(proxy)
@@ -40,6 +50,20 @@ struct GAContentView: View {
                 gaDeviceState.screenSize = value
             }
         }
+    }
+
+    @ToolbarContentBuilder
+    func OtherToolbar() -> some ToolbarContent {
+        ToolbarItem(
+            placement: .principal,
+            content: {
+                HStack {
+                    Text("\(gaRouter.selectedTab.rawValue.description)")
+                        .gaTypography(.title2)
+                }
+                .foregroundStyle(.black1)
+            }
+        )
     }
 }
 

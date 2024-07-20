@@ -17,10 +17,12 @@ final class GAAppState: ObservableObject {
     private var _animationDefaultDuration: TimeInterval = 0.3
     private var _animationExtraBounceRate: Double = 0.5
     
+    /// - Returns: 0.3
     var animationDefaultDuration: TimeInterval {
         return _animationDefaultDuration
     }
     
+    /// - Returns: 0.5
     var animationExtraBounceRate: Double {
         return _animationExtraBounceRate
     }

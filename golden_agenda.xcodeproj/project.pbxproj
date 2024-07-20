@@ -50,6 +50,7 @@
 		9B8B11902C2D122C00FB2995 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */; };
 		9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF45532C48F48D00EDC459 /* GARouter.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
+		9BF8FAE92C4B9240002E5678 /* AgendaToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8FAE82C4B9240002E5678 /* AgendaToolbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		9B8B118F2C2D122C00FB2995 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		9BAF45532C48F48D00EDC459 /* GARouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GARouter.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
+		9BF8FAE82C4B9240002E5678 /* AgendaToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaToolbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				9B60A6DF2C2A15470092A667 /* AgendaWheel.swift */,
 				9B3493542C28B105003489AC /* AgendaView.swift */,
 				9B86A8C42C484B3E006CD755 /* AgendaOverviewView.swift */,
+				9BF8FAE82C4B9240002E5678 /* AgendaToolbar.swift */,
 			);
 			path = AgendaView;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				9B76F2052C462AD300266B86 /* ChildAgendaEntity+CoreDataClass.swift in Sources */,
 				9B76F2062C462AD300266B86 /* ChildAgendaEntity+CoreDataProperties.swift in Sources */,
 				9B76F20C2C462CF600266B86 /* CoreDataStack.swift in Sources */,
+				9BF8FAE92C4B9240002E5678 /* AgendaToolbar.swift in Sources */,
 				9B76F2072C462AD300266B86 /* RepeatMetadataEntity+CoreDataClass.swift in Sources */,
 				9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */,
 				9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */,

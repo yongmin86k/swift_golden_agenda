@@ -9,6 +9,14 @@
 
 import SwiftUI
 
+var gaBottomTabs: [Routes] = [
+    Routes.agenda,
+    Routes.rewards,
+    Routes.addAgenda,
+    Routes.reports,
+    Routes.settings,
+]
+
 final class GARouter: ObservableObject {
     @Published var routes = [Routes]()
 
