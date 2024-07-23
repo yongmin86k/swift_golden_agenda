@@ -99,3 +99,59 @@ extension View {
         modifier(GAFont(textStyle: textStyle))
     }
 }
+
+private struct GAShadowStyleModifier1: ViewModifier {
+    func body(content: Content) -> some View {
+        content.shadow(color: .black1.opacity(0.2), radius: 8, y: 2)
+    }
+}
+
+extension View {
+    func gaShadowStyle1() -> some View {
+        modifier(GAShadowStyleModifier1())
+    }
+}
+
+struct GAToggleStyle: ToggleStyle {
+    var shape: GAShapes
+
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            createGAShape(shape)
+                .frame(width: 24, height: 24)
+                .foregroundColor(.black1)
+
+            configuration.label
+                .gaTypography(.body1).fontWeight(.bold)
+
+            Spacer()
+
+            Capsule()
+                .fill(configuration.isOn
+                    ? LinearGradient(
+                        gradient: Gradient(colors: [.yellow1, .yellow2]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                    : LinearGradient(
+                        gradient: Gradient(colors: [.grey2, .grey2]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .gaShadowStyle1()
+                .frame(width: 52, height: 28)
+                .overlay(
+                    Circle()
+                        .fill(Color.white)
+                        .padding(3)
+                        .offset(x: configuration.isOn ? 12 : -12)
+                )
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        configuration.isOn.toggle()
+                    }
+                }
+        }
+    }
+}

@@ -50,8 +50,6 @@ struct AgendaOverviewView: View {
                     Text("Point flow")
                         .gaTypography(.footnote2)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                    Button(action: { print("testing") }, label: { Text("yayaya") })
                 }
             )
             .modifier(addSquareBorderModifier())
@@ -98,7 +96,7 @@ struct AgendaOverviewView: View {
                         .background(
                             Capsule()
                                 .foregroundColor(.yellow1)
-                                .shadow(color: .black1.opacity(0.2), radius: 8, y: 2)
+                                .gaShadowStyle1()
                         )
                 }
             )

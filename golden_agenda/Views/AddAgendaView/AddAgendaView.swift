@@ -3,53 +3,54 @@
 //  golden_agenda
 //
 //  Created by Yongmin Kim on 2024-06-23.
-//
+//  Ref: https://www.hackingwithswift.com/quick-start/swiftui/how-to-run-some-code-when-state-changes-using-onchange
+//  Ref: https://stackoverflow.com/questions/56491386/how-to-hide-keyboard-when-using-swiftui
 
 import SwiftUI
 
+// TODO: Create a form component - https://blog.logrocket.com/building-forms-swiftui-comprehensive-guide/
 struct AddAgendaView: View {
     @EnvironmentObject private var gaDeviceState: GADeviceState
     @EnvironmentObject private var gaRouter: GARouter
 
-//    @State private var dottedViewSize = CGSize.zero
+    @StateObject private var gaAppStorage = GAAppStorage()
+
+//    TODO: use agenda instance
     @State private var title = ""
+    @State private var reward = 0
+    @State private var penalty = 0
+    @State private var openCategory = false
+    @State private var openDetails = false
+    @State private var openDate = false
+    @State private var openTime = false
+    @State private var openLocation = false
+
+    @FocusState private var focusedField: FocusedFields?
 
     var body: some View {
         let show = gaRouter.isActive(.addAgenda)
+        let backgroundHeight = gaDeviceState.screenSize.height
 
-        GeometryReader { _ in
-//            let backgroundHeight = gaDeviceState.screenSize.height - ($0.safeAreaInsets.top)
-            let backgroundHeight = gaDeviceState.screenSize.height
+        ZStack(
+            alignment:
+            Alignment(
+                horizontal: .center,
+                vertical: .bottom
+            )
+        ) {
+            Color.clear
 
-//            let _ = print("\(gaDeviceState.screenSize.height), \($0.safeAreaInsets.top)")
+            GADottedView(.uneven)
+                .padding(.horizontal, 28)
+                .frame(height: backgroundHeight)
+                .offsetWithAnimation(.background, show, 0, backgroundHeight)
 
-            ZStack(
-                alignment:
-                Alignment(
-                    horizontal: .center,
-                    vertical: .bottom
-                )
-            ) {
-                Color.clear
-
-                GADottedView(.uneven)
-//                    .safeAreaPadding(.top)
-                    .frame(height: backgroundHeight)
-                    .padding(.horizontal, 28)
-                    .offsetWithAnimation(.background, show, 0, backgroundHeight)
-                    .animation(.easeInOut(duration: 0.7), value: show)
-
-//                    .ignoresSafeArea(.keyboard)
-
-                AddOrEditForm(show, backgroundHeight)
-
-//            WhiteBackdropBlurView()
-//                .padding(.horizontal, 4)
-//                .frame(height: 200)
-            }
-
-//            .edgesIgnoringSafeArea(.bottom)
+            AddOrEditForm(show, backgroundHeight)
         }
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
+        .ignoresSafeArea(.all)
     }
 
     @ViewBuilder
@@ -63,7 +64,7 @@ struct AddAgendaView: View {
                 Button(
                     action: {
                         withAnimation {
-                            gaRouter.goBack()
+                            close()
                         }
                     }, label: {
                         Circle()
@@ -77,29 +78,65 @@ struct AddAgendaView: View {
                     }
                 )
                 .padding(16)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .trailing)
+                .frame(maxWidth: .infinity, alignment: .trailing)
 
                 ScrollView {
-                    Label {
-                        Text("Title")
-                    } icon: {
-                        createGAShape(.checkboxMarkedCirclePlusOutline)
-                            .frame(width: 24, height: 24)
-                    }
-                    .labelStyle(GALabelStyle())
+                    VStack(spacing: 0) {
+                        Label { Text("Title") } icon: { createGAShape(.checkboxMarkedCirclePlusOutline).frame(width: 24, height: 24) }
+                            .labelStyle(GALabelStyle())
+                            .padding(.bottom, 8)
 
-                    TextField("My agenda", text: $title)
-                        .gaTypography(.input1)
-                        .padding(.horizontal, 32)
-                        .padding(.vertical, 12)
-                        .background(
-                            Capsule()
-                                .fill(.grey1)
-                        )
-                        .lineLimit(1)
-                        .onAppear {
-                            UITextField.appearance().clearButtonMode = .whileEditing
+                        // TODO: custom clear button
+//                        .onAppear {
+//                            UITextField.appearance().clearButtonMode = .whileEditing
+//                        }
+                        TextField("My agenda", text: $title)
+                            .modifier(GATextFieldStyle($focusedField, .title))
+                            .onTapGesture { focusedField = .title }
+                            .onChange(of: show) { if show == true { focusedField = .title }}
+                            .padding(.bottom, 24)
+
+                        HStack(spacing: 16) {
+                            VStack {
+                                Label { Text("Reward") } icon: { createGAShape(.giftOutline).frame(width: 24, height: 24) }
+                                    .labelStyle(GALabelStyle())
+
+                                TextField("\(gaAppStorage.defaultRewardPoint)", value: $reward, format: .number)
+                                    .modifier(GATextFieldStyle($focusedField, .reward))
+                                    .onTapGesture { focusedField = .reward }
+                                    .keyboardType(.numberPad)
+                                    .labelStyle(GALabelStyle())
+                            }
+
+                            VStack {
+                                Label { Text("Penalty") } icon: { createGAShape(.heartMinusOutline).frame(width: 24, height: 24) }
+                                    .labelStyle(GALabelStyle())
+
+                                TextField("\(gaAppStorage.defaultPenaltyPoint)", value: $penalty, format: .number)
+                                    .modifier(GATextFieldStyle($focusedField, .penalty))
+                                    .onTapGesture { focusedField = .penalty }
+                                    .keyboardType(.numberPad)
+                                    .labelStyle(GALabelStyle())
+                            }
                         }
+
+                        Divider().overlay(Color.grey2).padding(.vertical, 16)
+
+                        Toggle("Category", isOn: $openCategory).toggleStyle(GAToggleStyle(shape: .shapePlusOutline))
+                            .padding(.bottom, 24)
+
+                        Toggle("Details", isOn: $openDetails).toggleStyle(GAToggleStyle(shape: .textBoxOutline))
+                            .padding(.bottom, 24)
+
+                        Toggle("Date (repeat)", isOn: $openDate).toggleStyle(GAToggleStyle(shape: .calendarRefresh))
+                            .padding(.bottom, 24)
+
+                        Toggle("Time", isOn: $openTime).toggleStyle(GAToggleStyle(shape: .watchLater))
+                            .padding(.bottom, 24)
+
+                        Toggle("Location", isOn: $openLocation).toggleStyle(GAToggleStyle(shape: .mapMarkerOutline))
+                            .padding(.bottom, 24)
+                    }
                 }
                 .padding(.horizontal, 16)
                 .scrollClipDisabled()
@@ -110,6 +147,19 @@ struct AddAgendaView: View {
         .clipped()
         .offsetWithAnimation(.foreground, show, 0, height)
     }
+
+    private func close() {
+        gaRouter.goBack()
+
+        UIApplication.shared.endEditing()
+    }
+}
+
+private enum FocusedFields: Hashable {
+    case title
+    case reward
+    case penalty
+    case details
 }
 
 private struct GALabelStyle: LabelStyle {
@@ -121,6 +171,27 @@ private struct GALabelStyle: LabelStyle {
         .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
         .gaTypography(.body1)
         .fontWeight(.bold)
+    }
+}
+
+private struct GATextFieldStyle: ViewModifier {
+    var focusedField: FocusState<FocusedFields?>.Binding
+    var field: FocusedFields
+
+    init(_ focusedField: FocusState<FocusedFields?>.Binding, _ field: FocusedFields) {
+        self.focusedField = focusedField
+        self.field = field
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .lineLimit(1)
+            .focused(focusedField, equals: field)
+            .gaTypography(.input1)
+            .padding(.horizontal, 32)
+            .padding(.vertical, 12)
+            .background(Capsule().fill(.grey1))
+            .contentShape(Capsule())
     }
 }
 
@@ -137,9 +208,22 @@ private struct GALabelStyle: LabelStyle {
 
     gaRouter.pushTo(.addAgenda)
 
-    return AddAgendaView()
-        .GABackground()
-        .environmentObject(GAAppState())
-        .environmentObject(gaDeviceState)
-        .environmentObject(gaRouter)
+    return NavigationStack {
+        AddAgendaView()
+            .environmentObject(GAAppState())
+            .environmentObject(gaDeviceState)
+            .environmentObject(gaRouter)
+            .GABackground()
+            .toolbar {
+                ToolbarItem(
+                    placement: .principal,
+                    content: {
+                        Text("\(Routes.agenda.rawValue.description)")
+                            .gaTypography(.title2)
+                            .foregroundStyle(.black1)
+                    }
+                )
+            }
+            .navigationBarTitleDisplayMode(.inline)
+    }
 }

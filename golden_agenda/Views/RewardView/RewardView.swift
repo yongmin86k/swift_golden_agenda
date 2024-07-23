@@ -10,9 +10,23 @@ import SwiftUI
 struct RewardView: View {
     var body: some View {
         Text("Reward")
+            .background(WhiteBackdropBlurView())
     }
 }
 
 #Preview {
-    RewardView()
+    NavigationStack {
+        RewardView()
+            .GABackground()
+            .toolbar {
+                ToolbarItem(
+                    placement: .principal,
+                    content: {
+                        Text("\(Routes.rewards.rawValue.description)")
+                            .gaTypography(.title2)
+                            .foregroundStyle(.black1)
+                    }
+                )
+            }
+    }
 }

@@ -34,7 +34,10 @@ extension View {
         )
         .onPreferenceChange(SizePreferenceKey.self, perform: { size in
             DispatchQueue.main.async {
-                onChange(size)
+                let roundedWidth = round(size.width)
+                let roundedHeight = round(size.height)
+
+                onChange(CGSize(width: roundedWidth, height: roundedHeight))
             }
         })
     }

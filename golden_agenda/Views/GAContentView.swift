@@ -29,6 +29,7 @@ struct GAContentView: View {
                             route.body
                                 .opacity(show ? 1 : 0)
                                 .animation(.easeInOut(duration: gaAppState.animationDefaultDuration), value: show)
+                                .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                     .GABackground()
@@ -45,13 +46,11 @@ struct GAContentView: View {
                 GABottomBarView(proxy)
             }
             .ignoresSafeArea()
-            .task(id: proxy.size.height, {
+            .task(id: proxy.size.width) {
                 DispatchQueue.main.async {
                     gaDeviceState.screenSize = proxy.size
-                    
-                    print("ContentView: \(proxy.size)")
                 }
-            })
+            }
         }
     }
 

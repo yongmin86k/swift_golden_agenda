@@ -88,7 +88,6 @@ struct AgendaView: View {
                 )
             }
         )
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: ContentArea
@@ -183,5 +182,6 @@ struct AgendaView: View {
             .toolbar {
                 AgendaToolbar()
             }
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
