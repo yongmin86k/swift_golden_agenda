@@ -13,8 +13,8 @@ class GAAppStorage: ObservableObject {
 
     @AppStorage("defaultAgendaViewType") var defaultAgendaViewType = "overview"
     @AppStorage("defaultCategory") var defaultCategory = "Uncategorized"
+    @AppStorage("defaultRewardPoint") var defaultRewardPoint: Int = 1
     @AppStorage("defaultPenaltyPoint") var defaultPenaltyPoint: Int = 0
-    @AppStorage("defaultRewardPoint") var defaultRewardPoint: Int = 0
 
     // MARK: Default user information
 

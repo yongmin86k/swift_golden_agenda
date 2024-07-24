@@ -13,12 +13,7 @@ struct AddAgendaView: View {
     @EnvironmentObject private var gaDeviceState: GADeviceState
     @EnvironmentObject private var gaRouter: GARouter
 
-    @StateObject private var gaAppStorage = GAAppStorage()
-
-//    TODO: use agenda instance
-    @State private var title = ""
-    @State private var reward = 0
-    @State private var penalty = 0
+    @StateObject private var createAgenda = CreateAgenda()
     @State private var openCategory = false
     @State private var openDetails = false
     @State private var openDate = false
@@ -46,6 +41,8 @@ struct AddAgendaView: View {
                 .offsetWithAnimation(.background, show, 0, backgroundHeight)
 
             AddOrEditForm(show, backgroundHeight)
+
+            AssistBar().padding(.bottom, gaDeviceState.keyboardHeight)
         }
         .onTapGesture {
             UIApplication.shared.endEditing()
@@ -83,14 +80,14 @@ struct AddAgendaView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         Label { Text("Title") } icon: { createGAShape(.checkboxMarkedCirclePlusOutline).frame(width: 24, height: 24) }
-                            .labelStyle(GALabelStyle())
+                            .labelStyle(GALabelStyle1())
                             .padding(.bottom, 8)
 
                         // TODO: custom clear button
 //                        .onAppear {
 //                            UITextField.appearance().clearButtonMode = .whileEditing
 //                        }
-                        TextField("My agenda", text: $title)
+                        TextField("My agenda", text: $createAgenda.title)
                             .modifier(GATextFieldStyle($focusedField, .title))
                             .onTapGesture { focusedField = .title }
                             .onChange(of: show) { if show == true { focusedField = .title }}
@@ -99,24 +96,24 @@ struct AddAgendaView: View {
                         HStack(spacing: 16) {
                             VStack {
                                 Label { Text("Reward") } icon: { createGAShape(.giftOutline).frame(width: 24, height: 24) }
-                                    .labelStyle(GALabelStyle())
+                                    .labelStyle(GALabelStyle1())
 
-                                TextField("\(gaAppStorage.defaultRewardPoint)", value: $reward, format: .number)
-                                    .modifier(GATextFieldStyle($focusedField, .reward))
+                                TextField("0", value: $createAgenda.pointEarned, format: .number)
+                                    .modifier(GATextFieldStyle($focusedField, .reward, isNumberPad: true))
                                     .onTapGesture { focusedField = .reward }
                                     .keyboardType(.numberPad)
-                                    .labelStyle(GALabelStyle())
+                                    .labelStyle(GALabelStyle1())
                             }
 
                             VStack {
                                 Label { Text("Penalty") } icon: { createGAShape(.heartMinusOutline).frame(width: 24, height: 24) }
-                                    .labelStyle(GALabelStyle())
+                                    .labelStyle(GALabelStyle1())
 
-                                TextField("\(gaAppStorage.defaultPenaltyPoint)", value: $penalty, format: .number)
-                                    .modifier(GATextFieldStyle($focusedField, .penalty))
+                                TextField("0", value: $createAgenda.pointLost, format: .number)
+                                    .modifier(GATextFieldStyle($focusedField, .penalty, isNumberPad: true))
                                     .onTapGesture { focusedField = .penalty }
                                     .keyboardType(.numberPad)
-                                    .labelStyle(GALabelStyle())
+                                    .labelStyle(GALabelStyle1())
                             }
                         }
 
@@ -148,7 +145,78 @@ struct AddAgendaView: View {
         .offsetWithAnimation(.foreground, show, 0, height)
     }
 
+    @ViewBuilder
+    func AssistBar() -> some View {
+        Group {
+            HStack {
+                Button(
+                    action: { close() },
+                    label: {
+                        Label("Cancel", systemImage: "xmark")
+                            .labelStyle(GALabelStyle2(color: .yellow1))
+                    }
+                )
+                .padding(.horizontal, 8)
+                .padding(.vertical, 12)
+                .contentShape(Rectangle())
+
+                Spacer()
+
+                Button(
+                    action: {
+                        createAgenda.reset()
+                        focusedField = nil
+                    },
+                    label: {
+                        Label {
+                            Text("Clear all")
+                        } icon: {
+                            createGAShape(.restore)
+                                .frame(width: 16, height: 16, alignment: .center)
+                        }
+                        .labelStyle(GALabelStyle2(color: .yellow1))
+                    }
+                )
+                .padding(.horizontal, 8)
+                .padding(.vertical, 12)
+                .contentShape(Rectangle())
+
+                Spacer()
+
+                Button(
+                    action: {
+                        createAgenda.reset()
+                        focusedField = nil
+                    },
+                    label: {
+                        Label {
+                            Text("Add")
+                        } icon: {
+                            createGAShape(.checkboxMarkedCirclePlusOutline)
+                                .frame(width: 16, height: 16, alignment: .center)
+                        }
+                        .labelStyle(GALabelStyle2(color: .white))
+                    }
+                )
+                .padding(.horizontal, 32)
+                .padding(.vertical, 14)
+                .background(Capsule().fill(.yellow1))
+                .contentShape(Rectangle())
+                .gaShadowStyle1()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .if(gaDeviceState.keyboardHeight == 0) {
+                $0.safeAreaPadding(.bottom)
+            }
+        }
+        .background(WhiteBackdropBlurView())
+        .padding(.horizontal, 4)
+    }
+
     private func close() {
+        focusedField = nil
+
         gaRouter.goBack()
 
         UIApplication.shared.endEditing()
@@ -162,7 +230,7 @@ private enum FocusedFields: Hashable {
     case details
 }
 
-private struct GALabelStyle: LabelStyle {
+private struct GALabelStyle1: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 8) {
             configuration.icon
@@ -174,24 +242,47 @@ private struct GALabelStyle: LabelStyle {
     }
 }
 
+private struct GALabelStyle2: LabelStyle {
+    var color: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 4) {
+            configuration.icon
+            configuration.title
+        }
+        .lineLimit(1)
+        .fixedSize(horizontal: false, vertical: true)
+        .gaTypography(.footnote1)
+        .foregroundColor(color)
+        .fontWeight(.bold)
+    }
+}
+
 private struct GATextFieldStyle: ViewModifier {
     var focusedField: FocusState<FocusedFields?>.Binding
     var field: FocusedFields
+    var isNumberPad: Bool
 
-    init(_ focusedField: FocusState<FocusedFields?>.Binding, _ field: FocusedFields) {
+    init(_ focusedField: FocusState<FocusedFields?>.Binding, _ field: FocusedFields, isNumberPad: Bool? = false) {
         self.focusedField = focusedField
         self.field = field
+        self.isNumberPad = isNumberPad ?? false
     }
 
     func body(content: Content) -> some View {
-        content
-            .lineLimit(1)
-            .focused(focusedField, equals: field)
-            .gaTypography(.input1)
-            .padding(.horizontal, 32)
-            .padding(.vertical, 12)
-            .background(Capsule().fill(.grey1))
-            .contentShape(Capsule())
+        HStack {
+            content
+                .multilineTextAlignment(isNumberPad ? .trailing : .leading)
+                .lineLimit(1)
+                .focused(focusedField, equals: field)
+                .gaTypography(.input1)
+
+            if isNumberPad { Text("Points").gaTypography(.footnote2) }
+        }
+        .padding(.horizontal, 32)
+        .padding(.vertical, 12)
+        .background(Capsule().fill(.grey1))
+        .contentShape(Capsule())
     }
 }
 

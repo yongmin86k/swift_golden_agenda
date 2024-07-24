@@ -26,6 +26,7 @@ enum GAShapes {
     case shapePlusOutline
     case textBoxOutline
     case watchLater
+    case restore
 }
 
 @ViewBuilder func createGAShape(_ type: GAShapes) -> some View {
@@ -60,6 +61,8 @@ enum GAShapes {
         WatchLaterShape()
     case .mapMarkerOutline:
         MapMarkerOutlineShape()
+    case .restore:
+        RestoreShape()
     }
 }
 
@@ -785,6 +788,37 @@ private struct WatchLaterShape: Shape {
         path.addLine(to: CGPoint(x: 0.70833*width, y: 0.62083*height))
         path.addLine(to: CGPoint(x: 0.52083*width, y: 0.50833*height))
         path.addLine(to: CGPoint(x: 0.52083*width, y: 0.29167*height))
+        path.closeSubpath()
+        return path
+    }
+}
+
+private struct RestoreShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.size.width
+        let height = rect.size.height
+        path.move(to: CGPoint(x: 0.54167*width, y: 0.125*height))
+        path.addCurve(to: CGPoint(x: 0.2765*width, y: 0.23484*height), control1: CGPoint(x: 0.44221*width, y: 0.125*height), control2: CGPoint(x: 0.34683*width, y: 0.16451*height))
+        path.addCurve(to: CGPoint(x: 0.16667*width, y: 0.5*height), control1: CGPoint(x: 0.20618*width, y: 0.30516*height), control2: CGPoint(x: 0.16667*width, y: 0.40054*height))
+        path.addLine(to: CGPoint(x: 0.04167*width, y: 0.5*height))
+        path.addLine(to: CGPoint(x: 0.20375*width, y: 0.66208*height))
+        path.addLine(to: CGPoint(x: 0.20667*width, y: 0.66792*height))
+        path.addLine(to: CGPoint(x: 0.375*width, y: 0.5*height))
+        path.addLine(to: CGPoint(x: 0.25*width, y: 0.5*height))
+        path.addCurve(to: CGPoint(x: 0.33543*width, y: 0.29376*height), control1: CGPoint(x: 0.25*width, y: 0.42265*height), control2: CGPoint(x: 0.28073*width, y: 0.34846*height))
+        path.addCurve(to: CGPoint(x: 0.54167*width, y: 0.20833*height), control1: CGPoint(x: 0.39013*width, y: 0.23906*height), control2: CGPoint(x: 0.46431*width, y: 0.20833*height))
+        path.addCurve(to: CGPoint(x: 0.7479*width, y: 0.29376*height), control1: CGPoint(x: 0.61902*width, y: 0.20833*height), control2: CGPoint(x: 0.69321*width, y: 0.23906*height))
+        path.addCurve(to: CGPoint(x: 0.83333*width, y: 0.5*height), control1: CGPoint(x: 0.8026*width, y: 0.34846*height), control2: CGPoint(x: 0.83333*width, y: 0.42265*height))
+        path.addCurve(to: CGPoint(x: 0.7479*width, y: 0.70624*height), control1: CGPoint(x: 0.83333*width, y: 0.57735*height), control2: CGPoint(x: 0.8026*width, y: 0.65154*height))
+        path.addCurve(to: CGPoint(x: 0.54167*width, y: 0.79167*height), control1: CGPoint(x: 0.69321*width, y: 0.76094*height), control2: CGPoint(x: 0.61902*width, y: 0.79167*height))
+        path.addCurve(to: CGPoint(x: 0.33583*width, y: 0.70583*height), control1: CGPoint(x: 0.46125*width, y: 0.79167*height), control2: CGPoint(x: 0.38833*width, y: 0.75875*height))
+        path.addLine(to: CGPoint(x: 0.27667*width, y: 0.765*height))
+        path.addCurve(to: CGPoint(x: 0.54167*width, y: 0.875*height), control1: CGPoint(x: 0.34458*width, y: 0.83333*height), control2: CGPoint(x: 0.4375*width, y: 0.875*height))
+        path.addCurve(to: CGPoint(x: 0.80683*width, y: 0.76517*height), control1: CGPoint(x: 0.64112*width, y: 0.875*height), control2: CGPoint(x: 0.7365*width, y: 0.83549*height))
+        path.addCurve(to: CGPoint(x: 0.91667*width, y: 0.5*height), control1: CGPoint(x: 0.87716*width, y: 0.69484*height), control2: CGPoint(x: 0.91667*width, y: 0.59945*height))
+        path.addCurve(to: CGPoint(x: 0.80683*width, y: 0.23484*height), control1: CGPoint(x: 0.91667*width, y: 0.40054*height), control2: CGPoint(x: 0.87716*width, y: 0.30516*height))
+        path.addCurve(to: CGPoint(x: 0.54167*width, y: 0.125*height), control1: CGPoint(x: 0.7365*width, y: 0.16451*height), control2: CGPoint(x: 0.64112*width, y: 0.125*height))
         path.closeSubpath()
         return path
     }

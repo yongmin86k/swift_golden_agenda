@@ -21,6 +21,7 @@ struct GAContentView: View {
                     vertical: .bottom
                 )
             ) {
+                // TODO: padding under navigation title
                 NavigationStack {
                     ZStack {
                         ForEach(gaBottomTabs, id: \.self) { route in
@@ -29,10 +30,10 @@ struct GAContentView: View {
                             route.body
                                 .opacity(show ? 1 : 0)
                                 .animation(.easeInOut(duration: gaAppState.animationDefaultDuration), value: show)
-                                .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                     .GABackground()
+                    .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         switch gaRouter.selectedTab {
                             case .agenda:
@@ -45,9 +46,11 @@ struct GAContentView: View {
 
                 GABottomBarView(proxy)
             }
-            .ignoresSafeArea()
+            .ignoresSafeArea(.all)
             .task(id: proxy.size.width) {
                 DispatchQueue.main.async {
+                    print(proxy.safeAreaInsets.bottom)
+
                     gaDeviceState.screenSize = proxy.size
                 }
             }

@@ -52,6 +52,7 @@
 		9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF45532C48F48D00EDC459 /* GARouter.swift */; };
 		9BF0EA252C3BBF0C00759236 /* GADottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0EA242C3BBF0C00759236 /* GADottedView.swift */; };
 		9BF8FAE92C4B9240002E5678 /* AgendaToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8FAE82C4B9240002E5678 /* AgendaToolbar.swift */; };
+		9BFEF9302C508CEC0054B982 /* CreateAgenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFEF92F2C508CEC0054B982 /* CreateAgenda.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 		9BAF45532C48F48D00EDC459 /* GARouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GARouter.swift; sourceTree = "<group>"; };
 		9BF0EA242C3BBF0C00759236 /* GADottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADottedView.swift; sourceTree = "<group>"; };
 		9BF8FAE82C4B9240002E5678 /* AgendaToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaToolbar.swift; sourceTree = "<group>"; };
+		9BFEF92F2C508CEC0054B982 /* CreateAgenda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAgenda.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				9B3493452C28AB61003489AC /* WhiteBackdropBlurView.swift */,
 				9BF0EA242C3BBF0C00759236 /* GADottedView.swift */,
 				9B86A8C62C484B9F006CD755 /* GABorderView.swift */,
+				9BFEF92F2C508CEC0054B982 /* CreateAgenda.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				9B76F2082C462AD300266B86 /* RepeatMetadataEntity+CoreDataProperties.swift in Sources */,
 				9BAF45542C48F48D00EDC459 /* GARouter.swift in Sources */,
 				9B76F2092C462AD300266B86 /* CategoryEntity+CoreDataClass.swift in Sources */,
+				9BFEF9302C508CEC0054B982 /* CreateAgenda.swift in Sources */,
 				9B76F20A2C462AD300266B86 /* CategoryEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,9 +23,9 @@ struct GABottomBarView: View {
         let horizontalPadding: CGFloat = 4
         let verticalPadding: CGFloat = 12
         let containerWidth: CGFloat = parentSize.size.width - horizontalPadding * 2
-        let addReminderButtonSize: CGFloat = 68
-        let otherButtonSize: CGFloat = (containerWidth - addReminderButtonSize) / CGFloat(gaBottomTabs.count)
-        let containerHeight: CGFloat = parentSize.safeAreaInsets.bottom + otherButtonSize + verticalPadding
+        let addAgendaButtonSize: CGFloat = 68
+        let otherButtonSize: CGFloat = (containerWidth - addAgendaButtonSize) / CGFloat(gaBottomTabs.count)
+        let containerHeight: CGFloat = otherButtonSize + verticalPadding
         let show = !gaRouter.isActive(.addAgenda)
         
         HStack(
@@ -33,10 +33,10 @@ struct GABottomBarView: View {
             content: {
                 Spacer()
                 ForEach(gaBottomTabs, id: \.self) { route in
-                    let isAddReminderRoute = route == Routes.addAgenda
+                    let isAddAgendaRoute = route == .addAgenda
                     
-                    if isAddReminderRoute {
-                        FloatActionButton(route: route, buttonSize: addReminderButtonSize)
+                    if isAddAgendaRoute {
+                        FloatActionButton(route: route, buttonSize: addAgendaButtonSize)
                     } else {
                         GATabItem(route: route, buttonSize: otherButtonSize)
                     }
@@ -45,10 +45,11 @@ struct GABottomBarView: View {
             }
         )
         .frame(width: containerWidth, height: containerHeight, alignment: .top)
+        .safeAreaPadding(.bottom)
         .background {
             WhiteBackdropBlurView()
         }
-        .offset(y: show ? 0 : containerHeight + 10)
+        .offset(y: show ? 0 : containerHeight + addAgendaButtonSize)
         .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 2), value: show)
     }
     
