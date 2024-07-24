@@ -9,12 +9,14 @@ import SwiftUI
 
 final class GADeviceState: ObservableObject {
     @Published var screenSize: CGSize
+    @Published var safeAreaInset: EdgeInsets
     @Published var deviceOrientation: UIDeviceOrientation
     // Ref: https://www.hackingwithswift.com/example-code/uikit/how-to-check-whether-an-iphone-or-ipad-is-upside-down-or-face-up
     @Published var keyboardHeight: CGFloat
     
     init() {
         self.screenSize = .zero
+        self.safeAreaInset = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
         self.deviceOrientation = .portrait
         self.keyboardHeight = .zero
         

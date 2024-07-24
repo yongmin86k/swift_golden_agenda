@@ -49,9 +49,8 @@ struct GAContentView: View {
             .ignoresSafeArea(.all)
             .task(id: proxy.size.width) {
                 DispatchQueue.main.async {
-                    print(proxy.safeAreaInsets.bottom)
-
                     gaDeviceState.screenSize = proxy.size
+                    gaDeviceState.safeAreaInset = proxy.safeAreaInsets
                 }
             }
         }

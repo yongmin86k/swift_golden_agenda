@@ -55,6 +55,7 @@ struct AgendaView: View {
                                 .system(size: 59, weight: .thin, design: .default)
                             )
                     })
+                    .padding(.vertical, 12)
                 }
                 .safeAreaPadding(.horizontal)
                 .clipped()
