@@ -87,6 +87,7 @@ struct AddAgendaView: View {
                             placeholder: "My agenda",
                             focused: .title,
                             focusedState: $focusedState,
+                            isFocused: focusedState == .title,
                             text: $createAgenda.title
                         )
                         .onTapGesture { focusedState = .title }
@@ -99,7 +100,11 @@ struct AddAgendaView: View {
                                     .labelStyle(GALabelStyle1())
 
                                 GATextField<FocusedFields>(
-                                    placeholder: "0", focused: .reward, focusedState: $focusedState, numberValue: $createAgenda.pointEarned
+                                    placeholder: "0",
+                                    focused: .reward,
+                                    focusedState: $focusedState,
+                                    isFocused: focusedState == .reward,
+                                    numberValue: $createAgenda.pointEarned
                                 )
                                 .onTapGesture { focusedState = .reward }
                                 .keyboardType(.numberPad)
@@ -111,7 +116,11 @@ struct AddAgendaView: View {
                                     .labelStyle(GALabelStyle1())
 
                                 GATextField<FocusedFields>(
-                                    placeholder: "0", focused: .penalty, focusedState: $focusedState, numberValue: $createAgenda.pointLost
+                                    placeholder: "0",
+                                    focused: .penalty,
+                                    focusedState: $focusedState,
+                                    isFocused: focusedState == .penalty,
+                                    numberValue: $createAgenda.pointLost
                                 )
                                 .onTapGesture { focusedState = .penalty }
                                 .keyboardType(.numberPad)
