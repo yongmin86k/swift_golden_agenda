@@ -20,7 +20,7 @@ struct AddAgendaView: View {
     @State private var openTime = false
     @State private var openLocation = false
 
-    @FocusState private var focusedField: FocusedFields?
+    @FocusState private var focusedState: FocusedFields?
 
     var body: some View {
         let show = gaRouter.isActive(.addAgenda)
@@ -83,37 +83,39 @@ struct AddAgendaView: View {
                             .labelStyle(GALabelStyle1())
                             .padding(.bottom, 8)
 
-                        // TODO: custom clear button
-//                        .onAppear {
-//                            UITextField.appearance().clearButtonMode = .whileEditing
-//                        }
-                        TextField("My agenda", text: $createAgenda.title)
-                            .modifier(GATextFieldStyle($focusedField, .title))
-                            .onTapGesture { focusedField = .title }
-                            .onChange(of: show) { if show == true { focusedField = .title }}
-                            .padding(.bottom, 24)
+                        GATextField<FocusedFields>(
+                            placeholder: "My agenda",
+                            focused: .title,
+                            focusedState: $focusedState,
+                            text: $createAgenda.title
+                        )
+                        .onTapGesture { focusedState = .title }
+                        .onChange(of: show) { if show == true { focusedState = .title }}
+                        .padding(.bottom, 24)
 
                         HStack(spacing: 16) {
                             VStack {
                                 Label { Text("Reward") } icon: { createGAShape(.giftOutline).frame(width: 24, height: 24) }
                                     .labelStyle(GALabelStyle1())
 
-                                TextField("0", value: $createAgenda.pointEarned, format: .number)
-                                    .modifier(GATextFieldStyle($focusedField, .reward, isNumberPad: true))
-                                    .onTapGesture { focusedField = .reward }
-                                    .keyboardType(.numberPad)
-                                    .labelStyle(GALabelStyle1())
+                                GATextField<FocusedFields>(
+                                    placeholder: "0", focused: .reward, focusedState: $focusedState, numberValue: $createAgenda.pointEarned
+                                )
+                                .onTapGesture { focusedState = .reward }
+                                .keyboardType(.numberPad)
+                                .labelStyle(GALabelStyle1())
                             }
 
                             VStack {
                                 Label { Text("Penalty") } icon: { createGAShape(.heartMinusOutline).frame(width: 24, height: 24) }
                                     .labelStyle(GALabelStyle1())
 
-                                TextField("0", value: $createAgenda.pointLost, format: .number)
-                                    .modifier(GATextFieldStyle($focusedField, .penalty, isNumberPad: true))
-                                    .onTapGesture { focusedField = .penalty }
-                                    .keyboardType(.numberPad)
-                                    .labelStyle(GALabelStyle1())
+                                GATextField<FocusedFields>(
+                                    placeholder: "0", focused: .penalty, focusedState: $focusedState, numberValue: $createAgenda.pointLost
+                                )
+                                .onTapGesture { focusedState = .penalty }
+                                .keyboardType(.numberPad)
+                                .labelStyle(GALabelStyle1())
                             }
                         }
 
@@ -165,7 +167,7 @@ struct AddAgendaView: View {
                 Button(
                     action: {
                         createAgenda.reset()
-                        focusedField = nil
+                        focusedState = nil
                     },
                     label: {
                         Label {
@@ -186,7 +188,7 @@ struct AddAgendaView: View {
                 Button(
                     action: {
                         createAgenda.reset()
-                        focusedField = nil
+                        focusedState = nil
                     },
                     label: {
                         Label {
@@ -215,7 +217,7 @@ struct AddAgendaView: View {
     }
 
     private func close() {
-        focusedField = nil
+        focusedState = nil
 
         gaRouter.goBack()
 
@@ -255,34 +257,6 @@ private struct GALabelStyle2: LabelStyle {
         .gaTypography(.footnote1)
         .foregroundColor(color)
         .fontWeight(.bold)
-    }
-}
-
-private struct GATextFieldStyle: ViewModifier {
-    var focusedField: FocusState<FocusedFields?>.Binding
-    var field: FocusedFields
-    var isNumberPad: Bool
-
-    init(_ focusedField: FocusState<FocusedFields?>.Binding, _ field: FocusedFields, isNumberPad: Bool? = false) {
-        self.focusedField = focusedField
-        self.field = field
-        self.isNumberPad = isNumberPad ?? false
-    }
-
-    func body(content: Content) -> some View {
-        HStack {
-            content
-                .multilineTextAlignment(isNumberPad ? .trailing : .leading)
-                .lineLimit(1)
-                .focused(focusedField, equals: field)
-                .gaTypography(.input1)
-
-            if isNumberPad { Text("Points").gaTypography(.footnote2) }
-        }
-        .padding(.horizontal, 32)
-        .padding(.vertical, 12)
-        .background(Capsule().fill(.grey1))
-        .contentShape(Capsule())
     }
 }
 

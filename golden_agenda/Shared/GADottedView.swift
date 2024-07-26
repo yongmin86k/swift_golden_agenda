@@ -33,7 +33,7 @@ private struct DottedShapeView<ShapeContent: InsettableShape>: View {
 struct GADottedView: View {
     var type: GADottedViewType
 
-    init(_ type: GADottedViewType? = .rounded) {
+    init(_ type: GADottedViewType? = nil) {
         self.type = type ?? .rounded
     }
 
