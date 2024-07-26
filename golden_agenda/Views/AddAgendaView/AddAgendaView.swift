@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-// TODO: Create a form component - https://blog.logrocket.com/building-forms-swiftui-comprehensive-guide/
 struct AddAgendaView: View {
     @EnvironmentObject private var gaDeviceState: GADeviceState
     @EnvironmentObject private var gaRouter: GARouter
@@ -60,9 +59,7 @@ struct AddAgendaView: View {
             VStack(alignment: .leading) {
                 Button(
                     action: {
-                        withAnimation {
-                            close()
-                        }
+                        withAnimation {close()}
                     }, label: {
                         Circle()
                             .fill(LinearGradient(gradient: Gradient(colors: [.grey1.opacity(0), .grey1]), startPoint: .top, endPoint: .bottom))
@@ -71,6 +68,7 @@ struct AddAgendaView: View {
                                 Image(systemName: "xmark")
                                     .font(.system(size: 12))
                                     .fontWeight(.bold)
+                                    .foregroundColor(.black1)
                             }
                     }
                 )
@@ -88,10 +86,12 @@ struct AddAgendaView: View {
                             focused: .title,
                             focusedState: $focusedState,
                             isFocused: focusedState == .title,
-                            text: $createAgenda.title
+                            text: $createAgenda.title,
+                            removeText: {createAgenda.title = ""}
                         )
                         .onTapGesture { focusedState = .title }
                         .onChange(of: show) { if show == true { focusedState = .title }}
+                        .onSubmit { focusedState = .reward }
                         .padding(.bottom, 24)
 
                         HStack(spacing: 16) {
@@ -107,6 +107,7 @@ struct AddAgendaView: View {
                                     numberValue: $createAgenda.pointEarned
                                 )
                                 .onTapGesture { focusedState = .reward }
+                                .onSubmit { focusedState = .penalty }
                                 .keyboardType(.numberPad)
                                 .labelStyle(GALabelStyle1())
                             }
@@ -123,6 +124,7 @@ struct AddAgendaView: View {
                                     numberValue: $createAgenda.pointLost
                                 )
                                 .onTapGesture { focusedState = .penalty }
+                                .onSubmit { focusedState = nil }
                                 .keyboardType(.numberPad)
                                 .labelStyle(GALabelStyle1())
                             }

@@ -6,6 +6,7 @@
 //  Ref: https://developer.apple.com/documentation/coredata
 //  Ref: https://github.com/SwiftfulThinking/SwiftUI-Continued-Learning
 //  Ref: https://www.youtube.com/watch?v=huRKU-TAD3g
+//  Ref: https://stackoverflow.com/questions/68543882/cannot-convert-value-of-type-bindingstring-to-expected-argument-type-bindi
 
 import CoreData
 

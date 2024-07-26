@@ -17,16 +17,23 @@ struct GATextField<S: Hashable>: View {
     var isFocused: Bool
     var text: Binding<String>?
     var numberValue: Binding<Int?>?
+    var removeText: (() -> Void)?
 
-    @State private var onEditing = false
-
-    init(placeholder: LocalizedStringKey, focused: S, focusedState: FocusState<S?>.Binding, isFocused: Bool, text: Binding<String>) {
+    init(
+        placeholder: LocalizedStringKey,
+        focused: S,
+        focusedState: FocusState<S?>.Binding,
+        isFocused: Bool,
+        text: Binding<String>,
+        removeText: (() -> Void)? = nil
+    ) {
         self.placeholder = placeholder
         self.focused = focused
         self.focusedState = focusedState
         self.isFocused = isFocused
         self.text = text
         self.numberValue = nil
+        self.removeText = removeText
     }
 
     init(placeholder: LocalizedStringKey, focused: S, focusedState: FocusState<S?>.Binding, isFocused: Bool, numberValue: Binding<Int?>) {
@@ -36,18 +43,26 @@ struct GATextField<S: Hashable>: View {
         self.isFocused = isFocused
         self.text = nil
         self.numberValue = numberValue
+        self.removeText = nil
     }
 
     var body: some View {
         HStack {
             if text != nil {
-                TextField(placeholder, text: text!, onEditingChanged: { onEditing = $0 })
-                    .modifier(GATextFieldModifier(focused, focusedState))
+                HStack(spacing: 0) {
+                    TextField(placeholder, text: text!)
+                        .modifier(GATextFieldModifier(focused, focusedState))
 
-                // TODO: custom clear button
-//                        .onAppear {
-//                            UITextField.appearance().clearButtonMode = .whileEditing
-//                        }
+                    if isFocused {
+                        Button("", systemImage: "xmark", action: {
+                            if removeText != nil { removeText!() }
+                        })
+                        .font(.system(size: 16))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .offset(x: 18)
+                    }
+                }
             }
 
             if numberValue != nil {
@@ -119,12 +134,14 @@ private struct GATextFieldPreview: View {
     var body: some View {
         VStack {
             GATextField<FocusedFields>(
-                placeholder: "title", focused: .title, focusedState: $focusedState, isFocused: focusedState == .title, text: $text)
-                .onTapGesture { withAnimation { focusedState = .title }}
+                placeholder: "title", focused: .title, focusedState: $focusedState, isFocused: focusedState == .title, text: $text, removeText: { text = "" }
+            )
+            .onTapGesture { withAnimation { focusedState = .title }}
 
             GATextField<FocusedFields>(
-                placeholder: "0", focused: .reward, focusedState: $focusedState, isFocused: focusedState == .reward, numberValue: $num)
-                .onTapGesture { withAnimation { focusedState = .reward } }
+                placeholder: "0", focused: .reward, focusedState: $focusedState, isFocused: focusedState == .reward, numberValue: $num
+            )
+            .onTapGesture { withAnimation { focusedState = .reward } }
         }
         .padding()
     }
