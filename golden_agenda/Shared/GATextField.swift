@@ -7,14 +7,18 @@
 //  Ref: https://ampersandsoftworks.com/posts/from-strings-to-data-using-parseableformatstyle/
 //  Ref: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/initialization/
 //  Ref: https://www.swiftbysundell.com/tips/struct-convenience-initializers/
+//  Ref: https://www.swiftcraft.io/articles/a-closer-look-at-interactive-animations-in-swiftui
 
 import SwiftUI
 
 struct GATextField<S: Hashable>: View {
+    @EnvironmentObject private var gaAppState: GAAppState
+    
     var placeholder: LocalizedStringKey
     var focused: S
     var focusedState: FocusState<S?>.Binding
     var isFocused: Bool
+    var errorMessage: String?
     var text: Binding<String>?
     var numberValue: Binding<Int?>?
     var removeText: (() -> Void)?
@@ -24,6 +28,7 @@ struct GATextField<S: Hashable>: View {
         focused: S,
         focusedState: FocusState<S?>.Binding,
         isFocused: Bool,
+        errorMessage: String? = nil,
         text: Binding<String>,
         removeText: (() -> Void)? = nil
     ) {
@@ -31,48 +36,71 @@ struct GATextField<S: Hashable>: View {
         self.focused = focused
         self.focusedState = focusedState
         self.isFocused = isFocused
+        self.errorMessage = errorMessage
         self.text = text
         self.numberValue = nil
         self.removeText = removeText
     }
 
-    init(placeholder: LocalizedStringKey, focused: S, focusedState: FocusState<S?>.Binding, isFocused: Bool, numberValue: Binding<Int?>) {
+    init(
+        placeholder: LocalizedStringKey,
+        focused: S,
+        focusedState: FocusState<S?>.Binding,
+        isFocused: Bool,
+        errorMessage: String? = nil,
+        numberValue: Binding<Int?>
+    ) {
         self.placeholder = placeholder
         self.focused = focused
         self.focusedState = focusedState
         self.isFocused = isFocused
+        self.errorMessage = errorMessage
         self.text = nil
         self.numberValue = numberValue
         self.removeText = nil
     }
 
     var body: some View {
-        HStack {
-            if text != nil {
-                HStack(spacing: 0) {
-                    TextField(placeholder, text: text!)
-                        .modifier(GATextFieldModifier(focused, focusedState))
+        let hasError: Bool = ((errorMessage?.isEmpty) == false)
 
-                    if isFocused {
-                        Button("", systemImage: "xmark", action: {
-                            if removeText != nil { removeText!() }
-                        })
-                        .font(.system(size: 16))
-                        .fontWeight(.bold)
-                        .foregroundColor(.black)
-                        .offset(x: 18)
+        VStack(spacing: 0) {
+            HStack {
+                if text != nil {
+                    HStack(spacing: 0) {
+                        TextField(placeholder, text: text!)
+                            .modifier(GATextFieldModifier(focused, focusedState))
+
+                        if isFocused {
+                            Button("", systemImage: "xmark", action: {
+                                if removeText != nil { removeText!() }
+                            })
+                            .font(.system(size: 16))
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .offset(x: 18)
+                        }
                     }
                 }
-            }
 
-            if numberValue != nil {
-                TextField(placeholder, value: numberValue!, format: .number)
-                    .modifier(GATextFieldModifier(focused, focusedState, true))
+                if numberValue != nil {
+                    TextField(placeholder, value: numberValue!, format: .number)
+                        .modifier(GATextFieldModifier(focused, focusedState, true))
 
-                Text("Points").gaTypography(.footnote2)
+                    Text("Points").gaTypography(.footnote2)
+                }
             }
+            .modifier(GATextFieldStyleModifier(isFocused, hasError: hasError))
+            .modifier(GAShakeAnimation(hasError: hasError))
         }
-        .modifier(GATextFieldStyleModifier(isFocused))
+
+        if hasError {
+            Text(errorMessage ?? "").gaTypography(.body1)
+                .padding(.top, 0)
+                .padding(.leading, 34)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                .transition(.move(edge: .top))
+                .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 4), value: hasError)
+        }
     }
 }
 
@@ -100,9 +128,11 @@ private struct GATextFieldStyleModifier: ViewModifier {
     @EnvironmentObject private var gaAppState: GAAppState
 
     var isFocused: Bool
+    var hasError: Bool
 
-    init(_ isFocused: Bool) {
+    init(_ isFocused: Bool, hasError: Bool? = nil) {
         self.isFocused = isFocused
+        self.hasError = hasError ?? false
     }
 
     func body(content: Content) -> some View {
@@ -112,8 +142,14 @@ private struct GATextFieldStyleModifier: ViewModifier {
             .background(
                 Capsule()
                     .fill(isFocused ? .clear : .grey1)
-                    .if(isFocused) {
-                        $0.stroke(.yellow1, lineWidth: 1)
+                    .if(isFocused || hasError) { content in
+                        if hasError, isFocused {
+                            content.stroke(.red, lineWidth: 2)
+                        } else if isFocused, !hasError {
+                            content.stroke(.yellow1, lineWidth: 1)
+                        } else {
+                            content.stroke(.clear, lineWidth: 1)
+                        }
                     }
                     .animation(.linear(duration: gaAppState.animationDefaultDuration / 2), value: isFocused)
             )
@@ -121,15 +157,34 @@ private struct GATextFieldStyleModifier: ViewModifier {
     }
 }
 
+private struct GAShakeAnimation: ViewModifier {
+    var hasError: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .transformEffect(CGAffineTransform(translationX: hasError ? -4 : 4, y: 0))
+            .offset(x: hasError ? 4 : -4, y: 0)
+            .animation(
+                hasError
+                ? .easeInOut(duration: 0.04).repeatCount(6, autoreverses: false)
+                : .easeInOut(duration: 0.04),
+                value: hasError
+            )
+    }
+}
+
 private struct GATextFieldPreview: View {
     enum FocusedFields: Hashable {
         case title
+        case error
         case reward
     }
 
     @FocusState var focusedState: FocusedFields?
     @State var text = ""
+    @State var error = ""
     @State var num: Int?
+    @State var errorMessage: String?
 
     var body: some View {
         VStack {
@@ -137,6 +192,13 @@ private struct GATextFieldPreview: View {
                 placeholder: "title", focused: .title, focusedState: $focusedState, isFocused: focusedState == .title, text: $text, removeText: { text = "" }
             )
             .onTapGesture { withAnimation { focusedState = .title }}
+
+            GATextField<FocusedFields>(
+                placeholder: "error", focused: .error, focusedState: $focusedState, isFocused: focusedState == .error, errorMessage: errorMessage, text: $error, removeText: { error = ""; errorMessage = "" }
+            )
+            .onTapGesture {
+                withAnimation { focusedState = .error; errorMessage = "error message" }
+            }
 
             GATextField<FocusedFields>(
                 placeholder: "0", focused: .reward, focusedState: $focusedState, isFocused: focusedState == .reward, numberValue: $num
