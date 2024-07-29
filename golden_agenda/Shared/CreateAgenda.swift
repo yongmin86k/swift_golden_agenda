@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+enum CreateAgendaProperties: CaseIterable {
+    case title
+    case category
+    case pointEarned
+    case pointLost
+    case detail
+    case location
+}
+
 class CreateAgenda: ObservableObject {
     private var gaAppStorage: GAAppStorage
     
@@ -16,6 +25,7 @@ class CreateAgenda: ObservableObject {
     @Published private var _pointLost: Int
     @Published var detail: String?
     @Published var location: String?
+    @Published var errorMessages = [CreateAgendaProperties: String]()
     
     init() {
         self.gaAppStorage = GAAppStorage()
@@ -36,6 +46,24 @@ class CreateAgenda: ObservableObject {
         get { return _pointLost }
     }
     
+    func validate() -> Bool {
+        for property in CreateAgendaProperties.allCases {
+            switch property {
+            case .title:
+                if title.isEmpty {
+                    errorMessages[.title] = "Please type a title"
+                } else {
+                    errorMessages.removeValue(forKey: .title)
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        return errorMessages.isEmpty
+    }
+    
     func populate() {
         // TODO: load from core data
     }
@@ -48,6 +76,13 @@ class CreateAgenda: ObservableObject {
     }
     
     func save() {
+        let isValidated = validate()
+        
+        guard isValidated else {
+            return
+        }
+        
         // TODO: save at core data
+        print("title: \(title)", "category: \(category)", pointEarned as Any, pointLost as Any)
     }
 }

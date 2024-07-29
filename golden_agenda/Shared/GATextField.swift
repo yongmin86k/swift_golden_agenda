@@ -11,12 +11,25 @@
 
 import SwiftUI
 
-struct GATextField<S: Hashable>: View {
+protocol GATextFieldContainer: View {
+    associatedtype F: Hashable
+
+    var placeholder: LocalizedStringKey { get }
+    var focused: F { get }
+    var focusedState: FocusState<F?>.Binding { get }
+    var isFocused: Bool { get }
+    var errorMessage: String? { get }
+    var text: Binding<String>? { get }
+    var numberValue: Binding<Int?>? { get }
+    var removeText: (() -> Void)? { get }
+}
+
+struct GATextField<F: Hashable>: GATextFieldContainer {
     @EnvironmentObject private var gaAppState: GAAppState
-    
+
     var placeholder: LocalizedStringKey
-    var focused: S
-    var focusedState: FocusState<S?>.Binding
+    var focused: F
+    var focusedState: FocusState<F?>.Binding
     var isFocused: Bool
     var errorMessage: String?
     var text: Binding<String>?
@@ -25,8 +38,8 @@ struct GATextField<S: Hashable>: View {
 
     init(
         placeholder: LocalizedStringKey,
-        focused: S,
-        focusedState: FocusState<S?>.Binding,
+        focused: F,
+        focusedState: FocusState<F?>.Binding,
         isFocused: Bool,
         errorMessage: String? = nil,
         text: Binding<String>,
@@ -44,8 +57,8 @@ struct GATextField<S: Hashable>: View {
 
     init(
         placeholder: LocalizedStringKey,
-        focused: S,
-        focusedState: FocusState<S?>.Binding,
+        focused: F,
+        focusedState: FocusState<F?>.Binding,
         isFocused: Bool,
         errorMessage: String? = nil,
         numberValue: Binding<Int?>
@@ -91,15 +104,15 @@ struct GATextField<S: Hashable>: View {
             }
             .modifier(GATextFieldStyleModifier(isFocused, hasError: hasError))
             .modifier(GAShakeAnimation(hasError: hasError))
-        }
 
-        if hasError {
-            Text(errorMessage ?? "").gaTypography(.body1)
-                .padding(.top, 0)
-                .padding(.leading, 34)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                .transition(.move(edge: .top))
-                .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 4), value: hasError)
+            if hasError {
+                Text(errorMessage ?? "").gaTypography(.body1)
+                    .padding(.top, 8)
+                    .padding(.leading, 34)
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    .transition(.move(edge: .top))
+                    .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 4), value: hasError)
+            }
         }
     }
 }
@@ -143,7 +156,7 @@ private struct GATextFieldStyleModifier: ViewModifier {
                 Capsule()
                     .fill(isFocused ? .clear : .grey1)
                     .if(isFocused || hasError) { content in
-                        if hasError, isFocused {
+                        if hasError {
                             content.stroke(.red, lineWidth: 2)
                         } else if isFocused, !hasError {
                             content.stroke(.yellow1, lineWidth: 1)
@@ -166,8 +179,8 @@ private struct GAShakeAnimation: ViewModifier {
             .offset(x: hasError ? 4 : -4, y: 0)
             .animation(
                 hasError
-                ? .easeInOut(duration: 0.04).repeatCount(6, autoreverses: false)
-                : .easeInOut(duration: 0.04),
+                    ? .easeInOut(duration: 0.04).repeatCount(6, autoreverses: false)
+                    : .easeInOut(duration: 0.04),
                 value: hasError
             )
     }
@@ -197,13 +210,21 @@ private struct GATextFieldPreview: View {
                 placeholder: "error", focused: .error, focusedState: $focusedState, isFocused: focusedState == .error, errorMessage: errorMessage, text: $error, removeText: { error = ""; errorMessage = "" }
             )
             .onTapGesture {
-                withAnimation { focusedState = .error; errorMessage = "error message" }
+                withAnimation { focusedState = .error }
             }
 
             GATextField<FocusedFields>(
                 placeholder: "0", focused: .reward, focusedState: $focusedState, isFocused: focusedState == .reward, numberValue: $num
             )
             .onTapGesture { withAnimation { focusedState = .reward } }
+
+            Button(action: {
+                withAnimation {
+                    errorMessage = "error message"
+                }
+            }, label: {
+                Text("Show error")
+            })
         }
         .padding()
     }

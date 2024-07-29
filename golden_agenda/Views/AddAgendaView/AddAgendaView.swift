@@ -49,6 +49,8 @@ struct AddAgendaView: View {
         .ignoresSafeArea(.all)
     }
 
+    // MARK: Form
+
     @ViewBuilder
     func AddOrEditForm(_ show: Bool, _ backgroundHeight: CGFloat) -> some View {
         let height = backgroundHeight - 16
@@ -59,7 +61,7 @@ struct AddAgendaView: View {
             VStack(alignment: .leading) {
                 Button(
                     action: {
-                        withAnimation {close()}
+                        withAnimation { close() }
                     }, label: {
                         Circle()
                             .fill(LinearGradient(gradient: Gradient(colors: [.grey1.opacity(0), .grey1]), startPoint: .top, endPoint: .bottom))
@@ -86,11 +88,12 @@ struct AddAgendaView: View {
                             focused: .title,
                             focusedState: $focusedState,
                             isFocused: focusedState == .title,
+                            errorMessage: createAgenda.errorMessages[.title],
                             text: $createAgenda.title,
-                            removeText: {createAgenda.title = ""}
+                            removeText: { createAgenda.title = "" }
                         )
                         .onTapGesture { focusedState = .title }
-                        .onChange(of: show) { if show == true { focusedState = .title }}
+                        .onChange(of: show) { if show { focusedState = .title }}
                         .onSubmit { focusedState = .reward }
                         .padding(.bottom, 24)
 
@@ -158,6 +161,8 @@ struct AddAgendaView: View {
         .offsetWithAnimation(.foreground, show, 0, height)
     }
 
+    // MARK: Keyboard assist bar
+
     @ViewBuilder
     func AssistBar() -> some View {
         Group {
@@ -196,9 +201,12 @@ struct AddAgendaView: View {
 
                 Spacer()
 
+                /// Save button
                 Button(
                     action: {
-                        createAgenda.reset()
+                        // if error, focus on the first property
+                        createAgenda.save()
+
                         focusedState = nil
                     },
                     label: {
