@@ -15,7 +15,7 @@ struct AgendaWheel: View {
     var body: some View {
         GeometryReader { proxy in
             let drawableSize = proxy.size
-            let diameter = min(proxy.size.width, proxy.size.height) * 1.5
+            let diameter = Helpers.naturalCGFloat(min(proxy.size.width, proxy.size.height) * 1.5)
 
             ZStack(
                 alignment: Alignment(horizontal: .center, vertical: .center),

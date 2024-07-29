@@ -13,46 +13,39 @@ struct GAContentView: View {
     @EnvironmentObject private var gaRouter: GARouter
 
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(
-                alignment:
-                Alignment(
-                    horizontal: .center,
-                    vertical: .bottom
-                )
-            ) {
-                // TODO: padding under navigation title
-                NavigationStack {
-                    ZStack {
-                        ForEach(gaBottomTabs, id: \.self) { route in
-                            let show = gaRouter.isActive(route)
+        NavigationStack {
+            GeometryReader { proxy in
+                ZStack(
+                    alignment: Alignment(horizontal: .center, vertical: .bottom)
+                ) {
+                    ForEach(gaBottomTabs, id: \.self) { route in
+                        let show = gaRouter.isActive(route)
 
-                            route.body
-                                .opacity(show ? 1 : 0)
-                                .animation(.easeInOut(duration: gaAppState.animationDefaultDuration), value: show)
-                        }
+                        route.body
+                            .opacity(show ? 1 : 0)
+                            .animation(.easeInOut(duration: gaAppState.animationDefaultDuration), value: show)
                     }
-                    .GABackground()
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        switch gaRouter.selectedTab {
-                            case .agenda:
-                                AgendaToolbar()
-                            default:
-                                OtherToolbar()
-                        }
+
+                    GABottomBarView(proxy)
+                }
+                .GABackground()
+                .task(id: proxy.size.width) {
+                    DispatchQueue.main.async {
+                        gaDeviceState.screenSize = proxy.size
+                        gaDeviceState.safeAreaInset = proxy.safeAreaInsets
                     }
                 }
-
-                GABottomBarView(proxy)
             }
-            .ignoresSafeArea(.all)
-            .task(id: proxy.size.width) {
-                DispatchQueue.main.async {
-                    gaDeviceState.screenSize = proxy.size
-                    gaDeviceState.safeAreaInset = proxy.safeAreaInsets
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                switch gaRouter.selectedTab {
+                    case .agenda:
+                        AgendaToolbar()
+                    default:
+                        OtherToolbar()
                 }
             }
+//            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 

@@ -22,9 +22,9 @@ struct GABottomBarView: View {
     var body: some View {
         let horizontalPadding: CGFloat = 4
         let verticalPadding: CGFloat = 12
-        let containerWidth: CGFloat = parentSize.size.width - horizontalPadding * 2
+        let containerWidth = Helpers.naturalCGFloat(parentSize.size.width - horizontalPadding * 2, maximum: 300)
         let addAgendaButtonSize: CGFloat = 68
-        let otherButtonSize: CGFloat = (containerWidth - addAgendaButtonSize) / CGFloat(gaBottomTabs.count)
+        let otherButtonSize = Helpers.naturalCGFloat((containerWidth - addAgendaButtonSize) / CGFloat(gaBottomTabs.count), maximum: 32)
         let containerHeight: CGFloat = otherButtonSize + verticalPadding
         let show = !gaRouter.isActive(.addAgenda)
         
@@ -46,9 +46,7 @@ struct GABottomBarView: View {
         )
         .frame(width: containerWidth, height: containerHeight, alignment: .top)
         .safeAreaPadding(.bottom)
-        .background {
-            WhiteBackdropBlurView()
-        }
+        .background { WhiteBackdropBlurView() }
         .offset(y: show ? 0 : containerHeight + addAgendaButtonSize)
         .animation(.easeInOut(duration: gaAppState.animationDefaultDuration / 2), value: show)
     }

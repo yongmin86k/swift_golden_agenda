@@ -23,7 +23,7 @@ struct AddAgendaView: View {
 
     var body: some View {
         let show = gaRouter.isActive(.addAgenda)
-        let backgroundHeight = gaDeviceState.screenSize.height
+        let backgroundHeight = Helpers.naturalCGFloat(gaDeviceState.screenSize.height + gaDeviceState.safeAreaInset.bottom)
 
         ZStack(
             alignment:
@@ -162,7 +162,8 @@ struct AddAgendaView: View {
     }
 
     // MARK: Keyboard assist bar
-
+    // Ref: https://medium.com/geekculture/swiftui-keyboard-toolbar-item-downsides-and-better-alternative-b673c1d53731
+    // TODO: read article and fix the keyboard height issue
     @ViewBuilder
     func AssistBar() -> some View {
         Group {

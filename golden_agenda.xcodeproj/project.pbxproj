@@ -16,6 +16,7 @@
 		9B0BFF072C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */; };
 		9B2EC05A2C2953BA00873C84 /* GATagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2EC0592C2953BA00873C84 /* GATagView.swift */; };
 		9B2EC05D2C2972BE00873C84 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2EC05C2C2972BE00873C84 /* StringExtensions.swift */; };
+		9B2FD7D82C57615A0056CE6B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2FD7D72C57615A0056CE6B /* Helpers.swift */; };
 		9B3493402C28AA2F003489AC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B34933F2C28AA2F003489AC /* Theme.swift */; };
 		9B3493422C28AA72003489AC /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493412C28AA72003489AC /* Routes.swift */; };
 		9B3493442C28AAAA003489AC /* GAShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3493432C28AAAA003489AC /* GAShapes.swift */; };
@@ -87,6 +88,7 @@
 		9B0BFF062C28A87C009F007F /* golden_agendaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golden_agendaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B2EC0592C2953BA00873C84 /* GATagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATagView.swift; sourceTree = "<group>"; };
 		9B2EC05C2C2972BE00873C84 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		9B2FD7D72C57615A0056CE6B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		9B34933F2C28AA2F003489AC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9B3493412C28AA72003489AC /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		9B3493432C28AAAA003489AC /* GAShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAShapes.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				9B86A8C62C484B9F006CD755 /* GABorderView.swift */,
 				9BFEF92F2C508CEC0054B982 /* CreateAgenda.swift */,
 				9B4DD0A42C52005000B4049F /* GATextField.swift */,
+				9B2FD7D72C57615A0056CE6B /* Helpers.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				9B86A8C52C484B3E006CD755 /* AgendaOverviewView.swift in Sources */,
 				9B3EBF9E2C2E92F9002DA262 /* GADeviceState.swift in Sources */,
 				9B3493582C28B1D7003489AC /* RewardView.swift in Sources */,
+				9B2FD7D82C57615A0056CE6B /* Helpers.swift in Sources */,
 				9B3493422C28AA72003489AC /* Routes.swift in Sources */,
 				9B3493552C28B1C6003489AC /* AgendaView.swift in Sources */,
 				9B3493562C28B1D3003489AC /* AddAgendaView.swift in Sources */,
@@ -672,7 +676,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
@@ -711,7 +715,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";

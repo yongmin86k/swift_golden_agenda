@@ -29,13 +29,14 @@ struct AgendaView: View {
         let calendar = Calendar.current
         let year: Int = calendar.component(.year, from: date)
         let month: Int = calendar.component(.month, from: date)
+        let monthFontSize: CGFloat = 59
 
         VStack(
             alignment: .center,
             spacing: 0,
             content: {
                 ZStack {
-                    HStack {
+                    HStack(spacing: 0) {
                         Button(action: {}, label: { GATagView(text: "\(year)") })
 
                         Spacer()
@@ -51,11 +52,9 @@ struct AgendaView: View {
                     Button(action: {}, label: {
                         Text("\(month)".paddingStart(length: 2, chars: "0"))
                             .foregroundStyle(.grey2)
-                            .font(
-                                .system(size: 59, weight: .thin, design: .default)
-                            )
+                            .font(.system(size: monthFontSize, weight: .thin, design: .default))
                     })
-                    .padding(.vertical, 12)
+                    .frame(height: monthFontSize)
                 }
                 .safeAreaPadding(.horizontal)
                 .clipped()
@@ -63,7 +62,7 @@ struct AgendaView: View {
                 ZStack(
                     alignment: .top,
                     content: {
-                        let draggableHeight = CGFloat(gaDeviceState.screenSize.height * 0.16)
+                        let draggableHeight = Helpers.naturalCGFloat(gaDeviceState.screenSize.height * 0.18)
                         let startOffset = draggableHeight - 16
                         let show = gaRouter.isActive(.agenda)
 

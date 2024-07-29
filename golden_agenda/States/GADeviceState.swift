@@ -15,7 +15,7 @@ final class GADeviceState: ObservableObject {
     @Published var keyboardHeight: CGFloat
     
     init() {
-        self.screenSize = .zero
+        self.screenSize = UIScreen.main.bounds.size
         self.safeAreaInset = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
         self.deviceOrientation = .portrait
         self.keyboardHeight = .zero
