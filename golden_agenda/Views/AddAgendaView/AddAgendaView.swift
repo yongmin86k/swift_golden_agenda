@@ -90,7 +90,7 @@ struct AddAgendaView: View {
                             isFocused: focusedState == .title,
                             errorMessage: createAgenda.errorMessages[.title],
                             text: $createAgenda.title,
-                            removeText: { createAgenda.title = "" }
+                            onRemoveText: { createAgenda.title = "" }
                         )
                         .onTapGesture { focusedState = .title }
                         .onChange(of: show) { if show { focusedState = .title }}

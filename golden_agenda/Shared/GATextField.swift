@@ -21,7 +21,8 @@ protocol GATextFieldContainer: View {
     var errorMessage: String? { get }
     var text: Binding<String>? { get }
     var numberValue: Binding<Int?>? { get }
-    var removeText: (() -> Void)? { get }
+    var onRemoveText: (() -> Void)? { get }
+    var onChange: (() -> Void)? { get }
 }
 
 struct GATextField<F: Hashable>: GATextFieldContainer {
@@ -34,7 +35,8 @@ struct GATextField<F: Hashable>: GATextFieldContainer {
     var errorMessage: String?
     var text: Binding<String>?
     var numberValue: Binding<Int?>?
-    var removeText: (() -> Void)?
+    var onRemoveText: (() -> Void)?
+    var onChange: (() -> Void)?
 
     init(
         placeholder: LocalizedStringKey,
@@ -43,7 +45,8 @@ struct GATextField<F: Hashable>: GATextFieldContainer {
         isFocused: Bool,
         errorMessage: String? = nil,
         text: Binding<String>,
-        removeText: (() -> Void)? = nil
+        onRemoveText: (() -> Void)? = nil,
+        onChange: (() -> Void)? = nil
     ) {
         self.placeholder = placeholder
         self.focused = focused
@@ -52,7 +55,8 @@ struct GATextField<F: Hashable>: GATextFieldContainer {
         self.errorMessage = errorMessage
         self.text = text
         self.numberValue = nil
-        self.removeText = removeText
+        self.onRemoveText = onRemoveText
+        self.onChange = onChange
     }
 
     init(
@@ -68,9 +72,7 @@ struct GATextField<F: Hashable>: GATextFieldContainer {
         self.focusedState = focusedState
         self.isFocused = isFocused
         self.errorMessage = errorMessage
-        self.text = nil
         self.numberValue = numberValue
-        self.removeText = nil
     }
 
     var body: some View {
@@ -85,7 +87,7 @@ struct GATextField<F: Hashable>: GATextFieldContainer {
 
                         if isFocused {
                             Button("", systemImage: "xmark", action: {
-                                if removeText != nil { removeText!() }
+                                if onRemoveText != nil { onRemoveText!() }
                             })
                             .font(.system(size: 16))
                             .fontWeight(.bold)
@@ -202,12 +204,12 @@ private struct GATextFieldPreview: View {
     var body: some View {
         VStack {
             GATextField<FocusedFields>(
-                placeholder: "title", focused: .title, focusedState: $focusedState, isFocused: focusedState == .title, text: $text, removeText: { text = "" }
+                placeholder: "title", focused: .title, focusedState: $focusedState, isFocused: focusedState == .title, text: $text, onRemoveText: { text = "" }
             )
             .onTapGesture { withAnimation { focusedState = .title }}
 
             GATextField<FocusedFields>(
-                placeholder: "error", focused: .error, focusedState: $focusedState, isFocused: focusedState == .error, errorMessage: errorMessage, text: $error, removeText: { error = ""; errorMessage = "" }
+                placeholder: "error", focused: .error, focusedState: $focusedState, isFocused: focusedState == .error, errorMessage: errorMessage, text: $error, onRemoveText: { error = ""; errorMessage = "" }
             )
             .onTapGesture {
                 withAnimation { focusedState = .error }

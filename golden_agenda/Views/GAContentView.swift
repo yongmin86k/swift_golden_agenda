@@ -45,7 +45,6 @@ struct GAContentView: View {
                         OtherToolbar()
                 }
             }
-//            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 
